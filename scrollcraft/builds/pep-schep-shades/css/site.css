@@ -197,7 +197,8 @@ button { font: inherit; color: inherit; }
 /* ---------- Product page ---------- */
 .pdp { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(24px, 4vw, 72px); padding: calc(var(--mast) + 24px) var(--gutter) 80px; }
 .pdp-gallery { display: grid; gap: 16px; align-content: start; }
-.pdp-gallery > img, .pdp-gallery > .plate { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.pdp-gallery > img { width: 100%; height: auto; }
+.pdp-gallery > .plate { width: 100%; aspect-ratio: 4 / 3; }
 .pdp-glass { margin-top: 24px; }
 .pdp-glass h2 { font-size: clamp(28px, 3vw, 44px); margin-bottom: 14px; }
 .pdp-buy { position: sticky; top: calc(var(--mast) + 24px); align-self: start; display: grid; gap: 16px; }

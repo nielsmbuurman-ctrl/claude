@@ -1,0 +1,139 @@
+{
+  "_note": "Single source of truth. Fields in `unverified` still need checking against pep-schep.nl. Then run: node build.mjs",
+  "products": [
+    {
+      "slug": "rave-classic",
+      "name": "Rave Classic",
+      "url": "https://pep-schep.nl/shop/rave-classic/",
+      "wcId": null,
+      "price": null,
+      "shape": "rect",
+      "frame": "Dun zwart montuur",
+      "frameColor": "#141414",
+      "frameOpacity": 1,
+      "lens": "Donker glas",
+      "tint": "#2B2B30",
+      "tintAlpha": 0.62,
+      "blurb": "Minimalistisch maar uitgesproken. Scherpe rechte lijnen in een dun zwart montuur.",
+      "description": [
+        "De Rave Classic houdt het strak: rechte lijnen, een dun zwart montuur en geen overbodige details.",
+        "Net zo goed op het festival als op een wandeling door de stad of een middag op het terras."
+      ],
+      "unverified": ["price", "lens", "tint", "photos"]
+    },
+    {
+      "slug": "el-silencio",
+      "name": "El Silencio",
+      "url": "https://pep-schep.nl/shop/el-silencio/",
+      "wcId": null,
+      "price": 19.95,
+      "shape": "soft",
+      "frame": null,
+      "frameColor": "#2A2521",
+      "frameOpacity": 1,
+      "lens": null,
+      "tint": "#3A3531",
+      "tintAlpha": 0.55,
+      "blurb": null,
+      "description": [],
+      "unverified": ["shape", "frame", "lens", "tint", "blurb", "description", "photos"]
+    },
+    {
+      "slug": "sinix",
+      "name": "Sinix",
+      "url": "https://pep-schep.nl/shop/sinix/",
+      "wcId": null,
+      "price": 19.95,
+      "shape": "wrap",
+      "frame": "Smal wrap-around montuur, lage neusbrug",
+      "frameColor": "#1A1B1F",
+      "frameOpacity": 1,
+      "lens": "Diep donker glas",
+      "tint": "#16181D",
+      "tintAlpha": 0.72,
+      "blurb": "Y2K-racer met smalle, naar achter getrokken lijnen en een diep donker glas.",
+      "description": [
+        "Smalle lijnen die naar achter trekken, een diep donker glas en een lage neusbrug die je gezicht scherp aftekent.",
+        "Licht en dicht op het gezicht, dus je vergeet dat je hem draagt. De wrap-around vorm blijft zitten als je springt, draait of door de menigte laveert.",
+        "Het donkere glas temt felle spots, en de vroege zon wanneer de nacht toch ochtend blijkt."
+      ],
+      "unverified": ["frameColor", "photos"]
+    },
+    {
+      "slug": "cristal-gris",
+      "name": "Cristal Gris",
+      "url": "https://pep-schep.nl/shop/cristal-gris/",
+      "wcId": null,
+      "price": null,
+      "shape": "soft",
+      "frame": null,
+      "frameColor": "#B9BDC1",
+      "frameOpacity": 0.55,
+      "lens": null,
+      "tint": "#7F868D",
+      "tintAlpha": 0.5,
+      "blurb": null,
+      "description": [],
+      "unverified": ["price", "shape", "frame", "lens", "tint (inferred from the name)", "blurb", "description", "photos"]
+    },
+    {
+      "slug": "calora",
+      "name": "Calora",
+      "url": "https://pep-schep.nl/shop/calora/",
+      "wcId": null,
+      "price": null,
+      "shape": "soft",
+      "frame": "Transparant montuur",
+      "frameColor": "#E9EEF0",
+      "frameOpacity": 0.5,
+      "lens": "Lichtblauw glas",
+      "tint": "#8FC3E4",
+      "tintAlpha": 0.42,
+      "blurb": "Transparant montuur, lichtblauwe glazen. Fris, en past bij alles.",
+      "description": [
+        "Een helder, transparant montuur met lichtblauwe glazen. Het frisse model in de reeks, en het past bij alles wat je aantrekt."
+      ],
+      "unverified": ["price", "shape", "photos"]
+    },
+    {
+      "slug": "lunares",
+      "name": "Lunares",
+      "url": "https://pep-schep.nl/shop/lunares/",
+      "wcId": null,
+      "price": null,
+      "shape": "round",
+      "frame": null,
+      "frameColor": "#2C2420",
+      "frameOpacity": 1,
+      "lens": null,
+      "tint": "#5A4636",
+      "tintAlpha": 0.5,
+      "blurb": null,
+      "description": [],
+      "unverified": ["price", "shape", "frame", "lens", "tint", "blurb", "description", "photos"]
+    },
+    {
+      "slug": "tecna",
+      "name": "Tecna",
+      "url": "https://pep-schep.nl/shop/tecna/",
+      "wcId": null,
+      "price": null,
+      "shape": "shield",
+      "frame": null,
+      "frameColor": "#1F2124",
+      "frameOpacity": 1,
+      "lens": null,
+      "tint": "#44484E",
+      "tintAlpha": 0.55,
+      "blurb": null,
+      "description": [],
+      "unverified": ["price", "shape", "frame", "lens", "tint", "blurb", "description", "photos"]
+    }
+  ],
+  "brandFacts": [
+    ["UV-filterglas", "Beschermt je ogen in de volle zon en tussen de lasers."],
+    ["Etui standaard erbij", "Elke bril komt met een opbergetui."],
+    ["Licht montuur", "Je vergeet dat je hem draagt."],
+    ["Discreet verpakt", "Niemand ziet wat er in het pakket zit."]
+  ]
+}

@@ -40,6 +40,10 @@ const SHAPES = {
     lenses: ["M30 104 Q46 70 120 66 L282 70 Q300 76 300 96 Q300 76 318 70 L480 66 Q554 70 570 104 Q560 146 470 152 L340 150 Q306 148 300 124 Q294 148 260 150 L130 152 Q40 146 30 104 Z"],
     extra: "M30 104 Q10 98 4 90 M570 104 Q590 98 596 90",
   },
+  calora: {
+    lenses: ["M92 60 H244 Q258 60 268 68 L278 78 Q286 86 286 100 V156 Q286 188 254 188 H96 Q64 188 64 156 V100 Q64 86 72 78 L82 68 Q86 60 92 60 Z", "M508 60 H356 Q342 60 332 68 L322 78 Q314 86 314 100 V156 Q314 188 346 188 H504 Q536 188 536 156 V100 Q536 86 528 78 L518 68 Q514 60 508 60 Z"],
+    extra: "M286 92 Q300 82 314 92 M64 86 L22 80 M536 86 L578 80",
+  },
   shield: {
     lenses: ["M40 86 Q60 52 300 50 Q540 52 560 86 L548 138 Q530 176 420 178 Q340 176 312 150 Q300 140 288 150 Q260 176 180 178 Q70 176 52 138 Z"],
     extra: "M40 86 L6 76 M560 86 L594 76",
@@ -184,6 +188,7 @@ function loupeStage({ fixed = null, label }) {
 function indexPage() {
   const base = "";
   const heroBg = asset("img/hero/bg.jpg");
+  const heroBgM = asset("img/hero/bg-m.jpg");
   const heroSubject = asset("img/hero/subject.png");
   const cover = bySlug.calora;
   const gridOrder = ["sinix", "calora", "rave-classic", "cristal-gris", "tecna", "lunares", "el-silencio"];
@@ -207,7 +212,8 @@ function indexPage() {
 <main id="main">
 
 <section class="cover" data-cover aria-labelledby="cover-title">
-  <div class="cover-bg plane" data-depth="0.15"${heroBg ? ` style="background-image:url(${heroBg})"` : ""}><div class="sun"></div></div>
+  ${heroBg ? `<style>.cover-bg.has-photo{background-image:url(${heroBg})}@media (max-width:860px){.cover-bg.has-photo{background-image:url(${heroBgM || heroBg})}}</style>` : ""}
+  <div class="cover-bg plane${heroBg ? " has-photo" : ""}" data-depth="0.15"><div class="sun"></div></div>
   <h1 id="cover-title" class="cover-title">
     <span class="ct ct--back plane" data-depth="0.35">Zeven manieren</span>
     <span class="ct ct--front plane" data-depth="0.6">om de zon aan te <em>kijken.</em></span>

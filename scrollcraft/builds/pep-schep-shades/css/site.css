@@ -65,12 +65,13 @@ button { font: inherit; color: inherit; }
 .cover { position: relative; height: 100svh; min-height: 640px; overflow: hidden; isolation: isolate; }
 .plane { will-change: transform; transform: translate3d(calc(var(--mx, 0) * var(--d, 0) * 18px), calc(var(--p, 0) * var(--d, 0) * -260px + var(--my, 0) * var(--d, 0) * 10px), 0); }
 .cover-bg { position: absolute; inset: -12% 0; z-index: -1; background: var(--canvas) center / cover no-repeat; }
+.cover-bg.has-photo .sun { display: none; }
 .sun { position: absolute; width: 70vmax; aspect-ratio: 1; right: -18vmax; top: -8vmax; border-radius: 50%; background: radial-gradient(circle, #FFE7BD 0, #F7C08A 26%, rgb(242 150 100 / .35) 48%, transparent 68%); }
 .cover-title { position: absolute; inset: 0; pointer-events: none; }
 .ct { position: absolute; display: block; }
-.ct--back { z-index: 1; left: var(--gutter); top: calc(var(--mast) + 5vh); font-size: clamp(64px, 12.5vw, 210px); line-height: .88; max-width: 8ch; }
+.ct--back { z-index: 1; left: var(--gutter); top: calc(var(--mast) + 5vh); font-size: clamp(64px, 11vw, 190px); line-height: .88; max-width: 8ch; }
 .ct--front { z-index: 3; right: var(--gutter); bottom: 24vh; font-size: clamp(40px, 6.8vw, 116px); text-align: right; max-width: 12ch; line-height: .92; }
-.cover-subject { position: absolute; z-index: 2; left: 30vw; top: 30vh; width: min(58vw, 980px); }
+.cover-subject { position: absolute; z-index: 2; left: 35vw; top: 42vh; width: min(54vw, 920px); }
 .cover-subject img, .shades--hero { width: 100%; filter: drop-shadow(0 40px 30px rgb(90 40 20 / .22)); }
 .cover-fg { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
 .flare { position: absolute; border-radius: 50%; filter: blur(28px); mix-blend-mode: multiply; }

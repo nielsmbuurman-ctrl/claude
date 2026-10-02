@@ -232,6 +232,14 @@ async function renderSection(type, id, data, scope) {
     return { id: bid, type: b.type, settings: resolveSettings((blockSchemas[b.type] || {}).settings, { ...bd, ...b.settings }), shopify_attributes: '' };
   });
   const section = { id, settings: resolveSettings(schema.settings, { ...defaults, ...(data.settings || {}) }), blocks, shopify_attributes: '' };
+  // Preview-only images for the brand banner (on the real store they are picked in the theme editor).
+  if (type === 'brand-hero') {
+    const img = (src, alt = '') => ({ src, alt });
+    section.settings.background ||= img('/img/brand-bg.webp');
+    section.settings.mascot ||= img('/img/mascot.webp', 'Zon-mascotte met zonnebril');
+    section.settings.product_image ||= img('/img/marea-flat.webp', 'Marea, Clear / Ice Blue');
+    section.settings.product ||= frames.find((f) => f.handle === 'marea');
+  }
   // Shopify exposes global objects (settings, cart, shop…) inside rendered snippets; liquidjs needs them as globals.
   const html = await engine.parseAndRender(src, { ...scope, section }, { globals: scope });
   const cls = ['shopify-section', schema.class].filter(Boolean).join(' ');
@@ -319,7 +327,7 @@ function route(url) {
   return ['404', { page_type: '404', page_title: 'Niet gevonden' }];
 }
 
-const types = { '.css': 'text/css', '.js': 'text/javascript', '.woff2': 'font/woff2', '.jpg': 'image/jpeg', '.png': 'image/png', '.svg': 'image/svg+xml' };
+const types = { '.webp': 'image/webp', '.css': 'text/css', '.js': 'text/javascript', '.woff2': 'font/woff2', '.jpg': 'image/jpeg', '.png': 'image/png', '.svg': 'image/svg+xml' };
 const imageMap = { 'marea-1.jpg': '01-front.jpg', 'marea-2.jpg': '02-angle.jpg', 'marea-3.jpg': '03-worn.jpg' };
 
 async function body(req) {
@@ -338,9 +346,10 @@ http.createServer(async (req, res) => {
   const url = new URL(req.url, 'http://localhost');
   try {
     if (url.pathname.startsWith('/assets/') || url.pathname.startsWith('/img/')) {
+      const name = path.basename(url.pathname);
       const file = url.pathname.startsWith('/assets/')
-        ? path.join(THEME, 'assets', path.basename(url.pathname))
-        : path.join(IMAGES, imageMap[path.basename(url.pathname)] || '');
+        ? path.join(THEME, 'assets', name)
+        : imageMap[name] ? path.join(IMAGES, imageMap[name]) : path.join(here, 'img', name);
       if (!fs.existsSync(file) || fs.statSync(file).isDirectory()) { res.writeHead(404); return res.end(); }
       res.writeHead(200, { 'Content-Type': types[path.extname(file)] || 'application/octet-stream' });
       return fs.createReadStream(file).pipe(res);

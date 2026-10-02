@@ -12,7 +12,7 @@ pricing at checkout comes from a discount app (step 5).
 
 | Page | Template | What it does |
 |---|---|---|
-| Home | `index.json` | Hero, proof bar, all ten frames with shape filters, set prices, see-through-the-lens loupe, quiz teaser, features, UGC wall (hidden until it has photos), story, FAQ (with FAQ structured data), email signup |
+| Home | `index.json` | Brand banner (mascot, frame, headline, four benefits, button), proof bar, all ten frames with shape filters, set prices, see-through-the-lens loupe, quiz teaser, features, UGC wall (hidden until it has photos), story, FAQ (with FAQ structured data), email signup |
 | Frame | `product.json` | Gallery, set selector (1 / Duo / Crew) with "pick your second pair", spec chips, accordions filled from metafields, loupe in the frame's own tint, "your next pair is €15", app slot for reviews, sticky add-to-bag on mobile |
 | All frames | `collection.json` | All frames, shape filters, set prices, sticky "build your set" pill on mobile |
 | Build your set | `page.build-your-set.json` | Pick 2, 3 or 4 frames; a pick beyond the set size grows the set |
@@ -82,7 +82,12 @@ search, 404, blog, article, gift card.
 9. **Replace before launch:** the bracketed FAQ answer about delivery times, the
    safety text, the affiliate sign-up link on the crew page, and the delivery
    promise on the product page (leave it empty unless it is true).
-10. **Images:** hero (2400 px, plus a 4:5 mobile crop), the loupe scene (16:10),
+10. **Images:** the brand banner on the home page needs three images, picked in
+    *Customize → Brand banner*: the peach doodle background, the mascot (transparent
+    PNG is best; a white background is blended away automatically), and the frame
+    (a transparent PNG is best; a photo's own light background is faded into a
+    white glow). Pick the Marea product there too, so the button links to it and
+    shows its price. Also: the loupe scene (16:10),
     the story image, an editorial tile for the grid, and six photos per frame
     (shot list in `carfo/PLAN.md`, section 8).
 11. **English:** add English under *Settings → Languages*; UI strings are in

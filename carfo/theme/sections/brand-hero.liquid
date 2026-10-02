@@ -1,0 +1,177 @@
+{%- liquid
+  assign s = section.settings
+  assign frames = settings.frames_collection | default: collections.all
+  assign featured = s.product
+  assign link = s.button_link
+  if link == blank and featured != blank
+    assign link = featured.url
+  endif
+  if link == blank
+    assign link = frames.url
+  endif
+  if featured != blank
+    assign price_money = featured.price | money
+  else
+    assign price_money = settings.single_price | times: 100 | round | money
+  endif
+  assign button_label = s.button_label | replace: '[price]', price_money
+  assign strip_words = s.strip | split: ','
+-%}
+{%- style -%}
+  @font-face {
+    font-family: 'Anton';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('{{ 'anton-400.woff2' | asset_url }}') format('woff2');
+  }
+  #BrandHero-{{ section.id }} {
+    --bh-bg: {{ s.bg_color }};
+    --bh-accent: {{ s.accent_color }};
+    --bh-badge-a: {{ s.badge_color_a }};
+    --bh-badge-b: {{ s.badge_color_b }};
+    --bh-button: {{ s.button_color }};
+  }
+{%- endstyle -%}
+
+<section id="BrandHero-{{ section.id }}" class="bh">
+  {%- if s.background != blank -%}
+    {{ s.background | image_url: width: 2400 | image_tag: loading: 'eager', widths: '800, 1200, 1600, 2400', sizes: '100vw', class: 'bh__bg', alt: '' }}
+  {%- endif -%}
+
+  <div class="bh__inner page-width">
+    <div class="bh__visual">
+      {%- if s.sticker != blank -%}
+        <p class="bh__sticker">{{ s.sticker | newline_to_br }}</p>
+      {%- endif -%}
+
+      <div class="bh__mascot{% if s.mascot_blend %} bh__mascot--blend{% endif %}">
+        {%- if s.mascot != blank -%}
+          {{ s.mascot | image_url: width: 1000 | image_tag: loading: 'eager', widths: '400, 600, 800, 1000', sizes: '(min-width: 990px) 28vw, 46vw', alt: s.mascot.alt }}
+        {%- endif -%}
+        <span class="bh__star bh__star--1" aria-hidden="true">★</span>
+        <span class="bh__star bh__star--2" aria-hidden="true">☆</span>
+      </div>
+
+      <a class="bh__product{% if s.product_soften %} bh__product--soften{% endif %}" href="{{ link }}" tabindex="-1" aria-hidden="true">
+        {%- if s.product_image != blank -%}
+          {{ s.product_image | image_url: width: 1400 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '500, 800, 1100, 1400', sizes: '(min-width: 990px) 36vw, 50vw', alt: s.product_image.alt }}
+        {%- elsif featured.featured_media -%}
+          {{ featured.featured_media | image_url: width: 1400 | image_tag: loading: 'eager', widths: '500, 800, 1100, 1400', sizes: '(min-width: 990px) 36vw, 50vw', alt: featured.title }}
+        {%- else -%}
+          {% render 'frame-sketch', tint: '#8FC3E4', alpha: 0.5, label: featured.title %}
+        {%- endif -%}
+      </a>
+
+      {%- if strip_words.size > 0 -%}
+        <ul class="bh__strip bh__strip--desktop" role="list">
+          {%- for word in strip_words -%}
+            <li><span class="bh__strip-star{% cycle '', ' bh__strip-star--outline' %}" aria-hidden="true">★</span>{{ word | strip }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+
+    <div class="bh__copy">
+      {%- if s.heading != blank -%}<h2 class="bh__heading">{{ s.heading | newline_to_br }}</h2>{%- endif -%}
+      {%- if s.subheading != blank -%}<p class="bh__sub">{{ s.subheading | newline_to_br }}</p>{%- endif -%}
+      {%- if s.text != blank -%}<p class="bh__text">{{ s.text }}</p>{%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <ul class="bh__benefits" role="list">
+          {%- for block in section.blocks -%}
+            <li class="bh__benefit" {{ block.shopify_attributes }}>
+              <span class="bh__badge bh__badge--{% cycle 'a', 'b' %}">{% render 'icon', name: block.settings.icon %}</span>
+              <span>
+                <span class="bh__benefit-title">{{ block.settings.title }}</span>
+                <span class="bh__benefit-text">{{ block.settings.text }}</span>
+              </span>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if button_label != blank -%}
+        <a class="bh__button" href="{{ link }}">{{ button_label }}</a>
+      {%- endif -%}
+      {%- if s.small_print != blank -%}<p class="bh__small">{{ s.small_print }}</p>{%- endif -%}
+
+      {%- if strip_words.size > 0 -%}
+        <ul class="bh__strip bh__strip--mobile" role="list">
+          {%- for word in strip_words -%}
+            <li><span class="bh__strip-star{% cycle '', ' bh__strip-star--outline' %}" aria-hidden="true">★</span>{{ word | strip }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand banner",
+  "tag": "div",
+  "class": "section-brand-hero",
+  "settings": [
+    { "type": "header", "content": "Images" },
+    { "type": "image_picker", "id": "background", "label": "Background", "info": "The peach doodle pattern, 16:9." },
+    { "type": "color", "id": "bg_color", "label": "Background colour", "default": "#FCE3CC" },
+    { "type": "image_picker", "id": "mascot", "label": "Mascot", "info": "Best as a transparent PNG. A white background also works with the option below." },
+    { "type": "checkbox", "id": "mascot_blend", "label": "Hide the mascot's white background", "default": true, "info": "Blends white into the background colour. Turn off for a transparent PNG." },
+    { "type": "image_picker", "id": "product_image", "label": "Product image", "info": "Transparent PNG of the frame works best. Empty = the product's first photo." },
+    { "type": "checkbox", "id": "product_soften", "label": "Soften the product photo's edges", "default": true, "info": "Fades a photo's own background into the banner. Turn off for a transparent PNG." },
+    { "type": "product", "id": "product", "label": "Product", "info": "Used for the button link and [price]." },
+    { "type": "header", "content": "Text" },
+    { "type": "textarea", "id": "sticker", "label": "Sticker", "default": "Maak kennis met Marea.\nJe nieuwe zomervriend." },
+    { "type": "textarea", "id": "heading", "label": "Headline", "default": "Zon op.\nBril op." },
+    { "type": "textarea", "id": "subheading", "label": "Second line", "default": "Meer dan een mooi montuur." },
+    { "type": "text", "id": "text", "label": "Intro", "default": "Helder montuur, ijsblauw verloop. Fris op elk terras, elke dag." },
+    { "type": "text", "id": "button_label", "label": "Button", "default": "Shop Marea · [price]", "info": "[price] becomes the product's price." },
+    { "type": "url", "id": "button_link", "label": "Button link", "info": "Empty = the product above." },
+    { "type": "text", "id": "small_print", "label": "Small print", "default": "Gratis verzending vanaf 2 brillen · 30 dagen gratis retourneren" },
+    { "type": "text", "id": "strip", "label": "Word strip", "default": "UV400, Licht, Helder, Zomerklaar", "info": "Separate words with commas." },
+    { "type": "header", "content": "Colours" },
+    { "type": "color", "id": "accent_color", "label": "Second line", "default": "#FF5A1F" },
+    { "type": "color", "id": "badge_color_a", "label": "Icon badge 1", "default": "#FF6A1F" },
+    { "type": "color", "id": "badge_color_b", "label": "Icon badge 2", "default": "#17262B" },
+    { "type": "color", "id": "button_color", "label": "Button", "default": "#FF6A1F" }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "uv", "label": "Sun" },
+            { "value": "ruler", "label": "Ruler" },
+            { "value": "case", "label": "Case" },
+            { "value": "tag", "label": "Price tag" },
+            { "value": "truck", "label": "Delivery" },
+            { "value": "return", "label": "Return" },
+            { "value": "check", "label": "Check" }
+          ],
+          "default": "check"
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "UV400-glazen" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Houden UVA en UVB tegen. CE-gemarkeerd." }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Brand banner",
+      "blocks": [
+        { "type": "benefit", "settings": { "icon": "uv", "title": "UV400-glazen", "text": "Houden UVA en UVB tegen. CE-gemarkeerd." } },
+        { "type": "benefit", "settings": { "icon": "ruler", "title": "Past gegarandeerd", "text": "Elke bril in millimeters. Past hij niet? Gratis retour." } },
+        { "type": "benefit", "settings": { "icon": "case", "title": "Hard etui erbij", "text": "Geen zakje. Een echt etui, bij elke bril." } },
+        { "type": "benefit", "settings": { "icon": "tag", "title": "Elke extra bril €15", "text": "Eén voor jou, één voor wie naast je staat." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

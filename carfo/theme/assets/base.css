@@ -572,6 +572,78 @@ frame-quiz, set-builder, bundle-selector, cart-drawer, media-gallery, lens-loupe
 .giftcard { display: grid; gap: 16px; justify-items: start; padding-block: 64px; }
 .giftcard__amount { font-size: 48px; font-weight: 500; }
 
+/* ---------- Brand banner ---------- */
+.bh { position: relative; overflow: hidden; background: var(--bh-bg); color: #111; }
+.bh__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.bh__inner { position: relative; display: grid; gap: 28px; padding-block: 28px 44px; }
+.bh__heading, .bh__sub, .bh__sticker, .bh__benefit-title, .bh__button, .bh__strip { font-family: 'Anton', 'Impact', 'Arial Narrow', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: .01em; }
+.bh__visual { position: relative; display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); align-items: center; gap: 0 4px; }
+.bh__sticker {
+  grid-column: 1 / -1; justify-self: start; position: relative; z-index: 2;
+  margin: 0 0 6px 4px; padding: 12px 18px;
+  background: #FFF8EC; border: 3px solid #111; border-radius: 14px; box-shadow: 5px 5px 0 #111;
+  font-size: clamp(19px, 5.4vw, 30px); line-height: 1.06; transform: rotate(-3deg);
+}
+.bh__mascot { position: relative; }
+.bh__mascot img { width: 100%; height: auto; transform: scale(1.22); transform-origin: 50% 85%; }
+.bh__mascot--blend img { mix-blend-mode: multiply; }
+.bh__star { position: absolute; color: var(--bh-accent); font-size: clamp(26px, 6vw, 46px); line-height: 1; pointer-events: none; }
+.bh__star--1 { left: 0; top: 46%; }
+.bh__star--2 { right: 2%; top: 62%; }
+.bh__product { position: relative; display: grid; place-items: center; padding: 6% 0; }
+.bh__product img, .bh__product .frame-sketch { transform: scale(1.18) rotate(-6deg); }
+.bh__product::before { content: ''; position: absolute; inset: 8% 4%; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 255, 255, .9), rgba(255, 255, 255, 0)); }
+.bh__product img, .bh__product .frame-sketch { position: relative; width: 100%; height: auto; filter: drop-shadow(0 18px 18px rgba(120, 70, 30, .18)); }
+.bh__product--soften::before { inset: -2% -6%; background: radial-gradient(closest-side, #fff 0, #fff 52%, rgba(255, 255, 255, 0) 100%); }
+.bh__product--soften img { filter: brightness(1.07) saturate(1.35); -webkit-mask-image: radial-gradient(closest-side, #000 58%, transparent 96%); mask-image: radial-gradient(closest-side, #000 58%, transparent 96%); }
+.bh__copy { display: grid; justify-items: start; }
+.bh__heading { font-size: clamp(56px, 16vw, 128px); line-height: .9; }
+.bh__sub { margin-top: 14px; color: var(--bh-accent); font-size: clamp(32px, 8.4vw, 54px); line-height: .98; }
+.bh__text { margin-top: 18px; font-size: 18px; line-height: 1.4; max-width: 34ch; }
+.bh__benefits { width: 100%; margin-top: 26px; }
+.bh__benefit { display: grid; grid-template-columns: 58px 1fr; align-items: center; gap: 16px; padding: 14px 0; }
+.bh__benefit + .bh__benefit { border-top: 1px solid rgba(17, 17, 17, .14); }
+.bh__badge { display: grid; place-items: center; width: 58px; height: 58px; border-radius: 50%; color: #fff; }
+.bh__badge .icon { width: 28px; height: 28px; stroke-width: 1.8; }
+.bh__badge--a { background: var(--bh-badge-a); }
+.bh__badge--b { background: var(--bh-badge-b); }
+.bh__benefit-title { display: block; font-size: clamp(24px, 6.4vw, 30px); line-height: 1.05; }
+.bh__benefit-text { display: block; margin-top: 2px; font-size: 16px; line-height: 1.35; color: #2a2a2a; }
+.bh__button {
+  display: block; width: 100%; margin-top: 22px; padding: 14px 20px;
+  background: var(--bh-button); color: #111; text-align: center; text-decoration: none;
+  border: 3px solid #111; border-radius: 14px; box-shadow: 5px 5px 0 #111;
+  font-size: clamp(28px, 7.6vw, 38px); line-height: 1.1;
+  transition: transform .15s var(--ease), box-shadow .15s var(--ease);
+}
+.bh__button:hover { transform: translate(2px, 2px); box-shadow: 3px 3px 0 #111; }
+.bh__button:active { transform: translate(5px, 5px); box-shadow: 0 0 0 #111; }
+.bh__small { margin-top: 12px; font-size: 13px; color: #3a3a3a; }
+.bh__strip { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: clamp(16px, 4.4vw, 34px); line-height: 1; }
+.bh__strip--mobile { justify-content: space-between; width: 100%; }
+.bh__strip li { white-space: nowrap; }
+.bh__strip li { display: inline-flex; align-items: center; gap: 10px; }
+.bh__strip-star { color: var(--bh-badge-b); font-size: .9em; }
+.bh__strip-star--outline { color: transparent; -webkit-text-stroke: 2px var(--bh-accent); }
+.bh__strip--mobile { margin-top: 28px; }
+.bh__strip--desktop { display: none; }
+
+@media (min-width: 990px) {
+  .bh__inner { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); align-items: center; gap: 40px; padding-block: 48px 56px; }
+  .bh__visual { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); grid-template-rows: auto 1fr auto; align-items: center; }
+  .bh__sticker { grid-column: 1 / -1; grid-row: 1; font-size: clamp(26px, 2.3vw, 38px); padding: 16px 24px; margin-bottom: 0; }
+  .bh__mascot { grid-column: 1; grid-row: 2 / 4; align-self: end; }
+  .bh__product { grid-column: 2; grid-row: 2; padding: 4% 0 0; }
+  .bh__strip--desktop { display: flex; flex-wrap: nowrap; grid-column: 2; grid-row: 3; justify-content: center; gap: 14px; margin-top: 8px; font-size: clamp(20px, 1.75vw, 30px); }
+  .bh__product img, .bh__product .frame-sketch { transform: rotate(-4deg); }
+  .bh__mascot img { transform: scale(1.3); }
+  .bh__strip--mobile { display: none; }
+  .bh__heading { font-size: clamp(72px, 7.4vw, 128px); }
+  .bh__sub { font-size: clamp(30px, 2.8vw, 46px); }
+  .bh__benefit-title { font-size: clamp(22px, 1.8vw, 30px); }
+  .bh__button { font-size: clamp(28px, 2.4vw, 38px); }
+}
+
 /* ---------- Toast & state ---------- */
 .toast { position: fixed; left: 50%; bottom: 24px; z-index: 60; max-width: calc(100vw - 32px); padding: 14px 18px; background: var(--ink); color: var(--bg); font-size: 14px; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; transition: opacity .25s var(--ease), transform .25s var(--ease); }
 .toast.is-on { opacity: 1; transform: translate(-50%, 0); }

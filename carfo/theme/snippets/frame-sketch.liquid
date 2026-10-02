@@ -1,0 +1,22 @@
+{%- comment -%}
+  A drawn pair of sunglasses, shown until a frame has its own photos.
+  Usage: render 'frame-sketch', tint: '#8FC3E4', alpha: 0.5, frame: '#111111', label: product.title
+{%- endcomment -%}
+{%- liquid
+  assign lens = tint | default: '#2B2B30'
+  assign lens_alpha = alpha | default: 0.55
+  assign rim = frame | default: '#111111'
+-%}
+<svg class="frame-sketch" viewBox="0 0 600 260" role="img" aria-label="{{ label | default: 'frame' | escape }}">
+  <g fill="{{ lens }}" fill-opacity="{{ lens_alpha }}">
+    <rect x="62" y="66" width="208" height="140" rx="40"/>
+    <rect x="330" y="66" width="208" height="140" rx="40"/>
+  </g>
+  <g fill="none" stroke="{{ rim }}" stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="62" y="66" width="208" height="140" rx="40"/>
+    <rect x="330" y="66" width="208" height="140" rx="40"/>
+    <path d="M270 104c18-16 42-16 60 0"/>
+    <path d="M62 92H22M538 92h40"/>
+  </g>
+  <path d="M96 92c18-10 40-14 64-12" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="8" stroke-linecap="round"/>
+</svg>

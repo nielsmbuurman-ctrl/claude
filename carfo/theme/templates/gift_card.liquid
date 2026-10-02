@@ -1,0 +1,25 @@
+{% layout none %}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{{ 'gift_card.title' | t }} · {{ shop.name }}</title>
+    {% render 'theme-styles' %}
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
+  </head>
+  <body class="template-gift-card">
+    <main class="giftcard page-width page-width--narrow">
+      <p class="wordmark">{{ settings.wordmark | default: shop.name }}</p>
+      <h1 class="h1">{{ 'gift_card.title' | t }}</h1>
+      <p class="giftcard__amount">{{ gift_card.balance | money }}</p>
+      {%- if gift_card.expired or gift_card.enabled == false -%}
+        <p class="warning">{{ 'gift_card.expired' | t }}</p>
+      {%- endif -%}
+      <p class="label">{{ 'gift_card.code' | t }}</p>
+      <p class="popup__code">{{ gift_card.code | format_code }}</p>
+      <a class="btn" href="{{ shop.url }}">{{ 'gift_card.shop' | t }}</a>
+    </main>
+  </body>
+</html>

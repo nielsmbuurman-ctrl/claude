@@ -1,0 +1,50 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "show_sets": true,
+        "default_tier": "2",
+        "tier_1_name": "1 bril",
+        "tier_2_name": "Duo",
+        "tier_2_badge": "Meest gekozen",
+        "tier_3_name": "Crew",
+        "tier_3_badge": "Beste deal",
+        "delivery_note": "",
+        "payment_note": "Betaal met iDEAL, Klarna of Apple Pay",
+        "size_page_link": "/pages/size-and-fit",
+        "in_the_box": "Hard etui en een microvezeldoekje.",
+        "shipping_returns": "<p>Gratis verzending vanaf 2 brillen. 30 dagen gratis retourneren: je krijgt een retourlabel per mail.</p>",
+        "care": "<p>Spoel af met lauw water, droog met het doekje en bewaar hem in het etui.</p>"
+      }
+    },
+    "loupe": {
+      "type": "lens-loupe",
+      "settings": {
+        "mode": "current",
+        "heading": "Zie het voor je hem draagt.",
+        "heading_single": "Kijk door [frame].",
+        "text": "Beweeg over de foto."
+      }
+    },
+    "next": {
+      "type": "product-grid",
+      "settings": {
+        "heading": "Jouw volgende bril is €15.",
+        "text": "",
+        "limit": 4,
+        "show_filters": false,
+        "exclude_current": true,
+        "add_label": "extra",
+        "button_label": "",
+        "editorial_position": 4,
+        "editorial_caption": ""
+      }
+    },
+    "reviews": {
+      "type": "apps",
+      "settings": {}
+    }
+  },
+  "order": ["main", "loupe", "next", "reviews"]
+}

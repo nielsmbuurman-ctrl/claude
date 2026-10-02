@@ -1,0 +1,35 @@
+<section class="search page-width">
+  <h1 class="h1 page-title">{{ 'search.title' | t }}</h1>
+  <form action="{{ routes.search_url }}" method="get" role="search" class="inline-form search__form">
+    <label class="visually-hidden" for="SearchInput">{{ 'search.title' | t }}</label>
+    <input id="SearchInput" class="field" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'search.placeholder' | t }}">
+    <input type="hidden" name="options[prefix]" value="last">
+    <button class="btn" type="submit">{{ 'search.submit' | t }}</button>
+  </form>
+
+  {%- if search.performed -%}
+    <p class="search__count">{{ 'search.results' | t: count: search.results_count, terms: search.terms }}</p>
+    {%- paginate search.results by 24 -%}
+      <ul class="grid" role="list">
+        {%- for item in search.results -%}
+          {%- if item.object_type == 'product' -%}
+            <li class="grid__item">{% render 'product-card', product: item %}</li>
+          {%- else -%}
+            <li class="grid__item search__link"><a href="{{ item.url }}">{{ item.title }}</a></li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+      {%- if paginate.pages > 1 -%}
+        <nav class="pagination" aria-label="{{ 'general.pagination' | t }}">{{ paginate | default_pagination }}</nav>
+      {%- endif -%}
+    {%- endpaginate -%}
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Search",
+  "tag": "div",
+  "settings": []
+}
+{% endschema %}

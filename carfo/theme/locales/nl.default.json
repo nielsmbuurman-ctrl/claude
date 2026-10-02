@@ -1,0 +1,149 @@
+{
+  "accessibility": {
+    "skip_to_content": "Naar de inhoud"
+  },
+  "general": {
+    "close": "Sluiten",
+    "yes": "Ja",
+    "no": "Nee",
+    "page": "Pagina {{ page }}",
+    "pagination": "Paginering",
+    "design_mode_ugc": "Voeg foto's toe als blokken. Deze sectie is onzichtbaar tot er een foto in staat."
+  },
+  "header": {
+    "menu": "Menu",
+    "search": "Zoeken",
+    "account": "Account",
+    "bag": "Tas"
+  },
+  "footer": {
+    "kvk": "KvK",
+    "vat": "Btw",
+    "language": "Taal"
+  },
+  "filters": {
+    "label": "Filter op vorm",
+    "all": "Alle",
+    "slim": "Slank",
+    "bold": "Stoer",
+    "tinted": "Getint",
+    "clear": "Helder"
+  },
+  "products": {
+    "add_with_price": "In mijn tas · {{ price }}",
+    "pick_more": "Kies nog {{ count }} brillen",
+    "pick_second": "Kies je tweede bril",
+    "pick_extra": "Kies {{ count }} extra brillen",
+    "choose_set": "Kies 1, 2 of 3 brillen",
+    "every_extra": "elke extra bril {{ price }}",
+    "extra_short": "+ {{ price }}",
+    "quick_add": "{{ title }} in mijn tas",
+    "sold_out": "Uitverkocht",
+    "placeholder_title": "Bril",
+    "photos_soon": "Foto's volgen",
+    "fit": "Pasvorm",
+    "fit_narrow": "Smal",
+    "fit_medium": "Medium",
+    "fit_wide": "Breed",
+    "category_short": "Cat. {{ category }}",
+    "polarized": "Gepolariseerd",
+    "details": "Details & pasvorm",
+    "frame_width": "Brilbreedte",
+    "lens_width": "Glasbreedte",
+    "bridge": "Brug",
+    "temple": "Pootlengte",
+    "material": "Materiaal",
+    "weight": "Gewicht",
+    "size_guide": "Alle maten vergelijken",
+    "lens": "Glazen",
+    "filter_category": "Filtercategorie",
+    "category_4_warning": "Filtercategorie 4: niet geschikt om mee auto te rijden.",
+    "in_the_box": "In de doos",
+    "shipping_returns": "Verzending & retour",
+    "care": "Onderhoud",
+    "safety": "Productveiligheid",
+    "free_returns": "30 dagen gratis retourneren",
+    "pick_one_more": "Kies nog 1 bril"
+  },
+  "sets": {
+    "pairs": {
+      "one": "{{ count }} bril",
+      "other": "{{ count }} brillen"
+    },
+    "per_pair": "{{ price }} per bril",
+    "free_shipping": "Gratis verzending",
+    "free_gift": "gratis koord",
+    "free_gift_short": "koord",
+    "shipping_price": "Verzending {{ price }}",
+    "size_label": "Hoeveel brillen?",
+    "choose": "Kies",
+    "picked": "{{ picked }} van {{ total }} gekozen",
+    "add": "Set in mijn tas",
+    "remove": "Haal deze bril uit je set"
+  },
+  "cart": {
+    "title": "Je tas",
+    "empty": "Je tas is leeg.",
+    "shop_all": "Bekijk alle 10",
+    "progress_one": "Voeg een tweede bril toe voor {{ price }} en de verzending is gratis.",
+    "progress_two": "Gratis verzending ontgrendeld. Een derde bril is ook {{ price }}, plus een gratis koord.",
+    "progress_three": "Gratis verzending en een gratis koord ontgrendeld. Elke extra bril blijft {{ price }}.",
+    "add_gift": "Voeg je gratis {{ title }} toe",
+    "no_set_discount": "Alleen zichtbaar in de editor: er staan 2+ brillen in de tas maar er is geen setkorting toegepast. Controleer je kortingsapp.",
+    "suggest": "Meest gekozen als tweede bril",
+    "add": "Toevoegen",
+    "quantity": "Aantal",
+    "decrease": "Eén {{ title }} minder",
+    "increase": "Eén {{ title }} meer",
+    "remove": "Verwijder",
+    "you_save": "Je bespaart",
+    "shipping": "Verzending",
+    "free": "Gratis",
+    "checkout": "Afrekenen · {{ price }}",
+    "add_error": "Dat lukte niet. Probeer het opnieuw."
+  },
+  "collections": {
+    "all_title": "Collecties",
+    "empty": "Hier staan nog geen brillen.",
+    "set_pill": "Stel je set samen · 2 voor {{ price }}"
+  },
+  "loupe": {
+    "hint": "Beweeg over de foto",
+    "choose": "Kies een glas",
+    "fallback_scene": "Zomerse scène"
+  },
+  "quiz": {
+    "restart": "Opnieuw"
+  },
+  "sizes": {
+    "frame": "Bril"
+  },
+  "newsletter": {
+    "email": "E-mailadres",
+    "no_spam": "Afmelden kan altijd."
+  },
+  "search": {
+    "title": "Zoeken",
+    "placeholder": "Zoek een bril",
+    "submit": "Zoek",
+    "results": {
+      "one": "{{ count }} resultaat voor “{{ terms }}”",
+      "other": "{{ count }} resultaten voor “{{ terms }}”"
+    }
+  },
+  "notfound": {
+    "title": "Deze pagina bestaat niet.",
+    "text": "De brillen wel."
+  },
+  "password": {
+    "enter": "Toegang met wachtwoord",
+    "password": "Wachtwoord",
+    "submit": "Ga naar binnen"
+  },
+  "gift_card": {
+    "title": "Je cadeaukaart",
+    "code": "Code",
+    "expired": "Deze cadeaukaart is verlopen of uitgeschakeld.",
+    "shop": "Naar de winkel"
+  }
+}

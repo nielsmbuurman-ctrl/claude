@@ -1,0 +1,57 @@
+{%- if section.settings.enabled -%}
+  <email-popup
+    class="popup"
+    data-delay="{{ section.settings.delay }}"
+    data-scroll="{{ section.settings.scroll }}"
+    data-days="{{ section.settings.days }}"
+    {{ section.shopify_attributes }}
+  >
+    <dialog class="popup__dialog" aria-labelledby="EmailPopupTitle">
+      <button type="button" class="icon-btn popup__close" data-close aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close' %}</button>
+      {%- form 'customer', id: 'EmailPopupForm', class: 'popup__body' -%}
+        {%- if form.posted_successfully? -%}
+          <div data-popup-success>
+            <h2 id="EmailPopupTitle" class="popup__title">{{ section.settings.success_heading }}</h2>
+            <p class="popup__text">{{ section.settings.success_text }}</p>
+            {%- if section.settings.code != blank -%}
+              <p class="popup__code">{{ section.settings.code }}</p>
+            {%- endif -%}
+          </div>
+        {%- else -%}
+          <h2 id="EmailPopupTitle" class="popup__title">{{ section.settings.heading }}</h2>
+          <p class="popup__text">{{ section.settings.text }}</p>
+          <input type="hidden" name="contact[tags]" value="newsletter,popup">
+          <div class="inline-form">
+            <label class="visually-hidden" for="PopupEmail">{{ 'newsletter.email' | t }}</label>
+            <input id="PopupEmail" class="field" type="email" name="contact[email]" autocomplete="email" required placeholder="{{ 'newsletter.email' | t }}">
+            <button class="btn" type="submit">{{ section.settings.button }}</button>
+          </div>
+          {%- if form.errors -%}
+            <p class="form-error" role="alert" data-popup-error>{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+          {%- endif -%}
+          <p class="popup__small">{{ 'newsletter.no_spam' | t }}</p>
+        {%- endif -%}
+      {%- endform -%}
+    </dialog>
+  </email-popup>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Email popup",
+  "tag": "div",
+  "class": "section-popup",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show popup", "default": true },
+    { "type": "range", "id": "delay", "label": "Show after (seconds)", "min": 5, "max": 60, "step": 5, "default": 15 },
+    { "type": "range", "id": "scroll", "label": "Or after scrolling (%)", "min": 20, "max": 90, "step": 10, "default": 50 },
+    { "type": "range", "id": "days", "label": "Hide after closing (days)", "min": 1, "max": 30, "step": 1, "default": 14 },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Gratis koord bij je eerste bestelling." },
+    { "type": "text", "id": "text", "label": "Text", "default": "En als eerste bij nieuwe brillen. Alleen drops, geen spam." },
+    { "type": "text", "id": "button", "label": "Button", "default": "Claim mijn koord" },
+    { "type": "text", "id": "success_heading", "label": "Success heading", "default": "Gelukt." },
+    { "type": "text", "id": "success_text", "label": "Success text", "default": "Gebruik deze code bij het afrekenen voor je gratis koord:" },
+    { "type": "text", "id": "code", "label": "Discount code", "default": "KOORD", "info": "Create this code under Discounts first." }
+  ]
+}
+{% endschema %}

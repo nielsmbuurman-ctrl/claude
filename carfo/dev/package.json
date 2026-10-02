@@ -1,0 +1,13 @@
+{
+  "name": "carfo-theme-preview",
+  "private": true,
+  "type": "module",
+  "description": "Local preview of the Carfo Shopify theme with sample data and a fake cart API.",
+  "scripts": {
+    "preview": "node preview.mjs",
+    "shoot": "node shoot.mjs"
+  },
+  "dependencies": {
+    "liquidjs": "^10.30.0"
+  }
+}

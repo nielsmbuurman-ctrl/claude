@@ -1,0 +1,24 @@
+{%- comment -%}
+  Shape chips for a list of frames. Filters the cards in the grid with id `grid` client-side.
+  Usage: render 'filter-chips', products: collection.products, grid: 'Grid-123'
+{%- endcomment -%}
+{%- liquid
+  assign shapes = ''
+  for p in products
+    assign s = p.metafields.carfo.shape.value | downcase
+    if s != blank
+      unless shapes contains s
+        assign shapes = shapes | append: s | append: ','
+      endunless
+    endif
+  endfor
+  assign shape_list = shapes | split: ','
+-%}
+{%- if shape_list.size > 1 -%}
+  <filter-chips class="chips" data-grid="{{ grid }}" role="group" aria-label="{{ 'filters.label' | t }}">
+    <button type="button" class="chip-btn" aria-pressed="true" data-filter="">{{ 'filters.all' | t }}</button>
+    {%- for s in shape_list -%}
+      <button type="button" class="chip-btn" aria-pressed="false" data-filter="{{ s }}">{% render 'shape-label', shape: s %}</button>
+    {%- endfor -%}
+  </filter-chips>
+{%- endif -%}

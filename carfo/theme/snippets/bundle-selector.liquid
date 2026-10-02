@@ -1,0 +1,70 @@
+{%- comment -%}
+  Set selector on a frame's page: 1, 2 or 3 pairs, and which other frames come along.
+  Usage: render 'bundle-selector', product: product, frames: frames, section: section
+{%- endcomment -%}
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign base = variant.price
+  assign extra_cents = settings.extra_pair_price | times: 100 | round
+  assign default_tier = section.settings.default_tier | plus: 0
+  assign gift_from = settings.gift_from_pairs
+  assign seen = '|' | append: product.id | append: '|'
+  assign pairs_with = product.metafields.carfo.pairs_with.value
+  assign ship_money = settings.single_shipping_price | times: 100 | round | money
+-%}
+<bundle-selector class="bundle" data-base="{{ base }}" data-extra="{{ extra_cents }}">
+  <fieldset class="tiers">
+    <legend class="visually-hidden">{{ 'products.choose_set' | t }}</legend>
+    {%- for n in (1..3) -%}
+      {%- liquid
+        case n
+          when 1
+            assign name = section.settings.tier_1_name
+            assign badge = ''
+          when 2
+            assign name = section.settings.tier_2_name
+            assign badge = section.settings.tier_2_badge
+          when 3
+            assign name = section.settings.tier_3_name
+            assign badge = section.settings.tier_3_badge
+        endcase
+      -%}
+      <label class="tier">
+        <input class="tier__input" type="radio" name="carfo-tier" value="{{ n }}"{% if n == default_tier %} checked{% endif %}>
+        <span class="tier__radio" aria-hidden="true"></span>
+        <span class="tier__main">
+          <span class="tier__name">{{ name }}</span>
+          {%- if badge != blank -%}<span class="badge">{{ badge }}</span>{%- endif -%}
+          <span class="tier__note">
+            {%- if n == 1 -%}
+              {{ 'sets.shipping_price' | t: price: ship_money }}
+            {%- else -%}
+              {{ 'sets.free_shipping' | t }}{% if n >= gift_from and settings.gift_product != blank %} + {{ 'sets.free_gift_short' | t }}{% endif %}
+            {%- endif -%}
+          </span>
+        </span>
+        <span class="tier__price">{% render 'set-price', pairs: n, base: base %}</span>
+      </label>
+    {%- endfor -%}
+  </fieldset>
+
+  <div class="picker" data-picker data-label-one="{{ 'products.pick_second' | t | escape }}" data-label-many="{{ 'products.pick_extra' | t: count: '[count]' | escape }}">
+    <p class="picker__label"><span data-picker-label>{{ 'products.pick_second' | t }}</span></p>
+    <ul class="picker__row" role="list">
+      {%- for p in pairs_with -%}
+        {%- assign key = '|' | append: p.id | append: '|' -%}
+        {%- unless seen contains key or p.available == false -%}
+          {%- assign seen = seen | append: key -%}
+          <li>{% render 'bundle-pick', p: p %}</li>
+        {%- endunless -%}
+      {%- endfor -%}
+      {%- for p in frames.products -%}
+        {%- assign key = '|' | append: p.id | append: '|' -%}
+        {%- unless seen contains key or p.available == false -%}
+          {%- assign seen = seen | append: key -%}
+          <li>{% render 'bundle-pick', p: p %}</li>
+        {%- endunless -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</bundle-selector>

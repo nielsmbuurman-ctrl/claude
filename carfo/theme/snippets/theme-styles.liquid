@@ -1,0 +1,35 @@
+{%- comment -%}
+  Self-hosted Inter Tight and the colour tokens from Theme settings > Colours.
+{%- endcomment -%}
+{% style %}
+  @font-face {
+    font-family: 'Inter Tight';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('{{ 'inter-tight-400.woff2' | asset_url }}') format('woff2');
+  }
+  @font-face {
+    font-family: 'Inter Tight';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('{{ 'inter-tight-500.woff2' | asset_url }}') format('woff2');
+  }
+  @font-face {
+    font-family: 'Inter Tight';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('{{ 'inter-tight-600.woff2' | asset_url }}') format('woff2');
+  }
+  :root {
+    --bg: {{ settings.color_bg }};
+    --tile: {{ settings.color_tile }};
+    --ink: {{ settings.color_ink }};
+    --mute: {{ settings.color_mute }};
+    --line: {{ settings.color_line }};
+    --accent: {{ settings.color_accent }};
+    --logo-width: {{ settings.logo_width }}px;
+  }
+{% endstyle %}

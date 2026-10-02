@@ -1,0 +1,60 @@
+{%- if section.blocks.size > 0 or request.design_mode -%}
+  <section class="ugc page-width">
+    <div class="section-head">
+      <div>
+        {%- if section.settings.heading != blank -%}<h2 class="h2">{{ section.settings.heading }}</h2>{%- endif -%}
+        {%- if section.settings.text != blank -%}<p class="section-head__text">{{ section.settings.text }}</p>{%- endif -%}
+      </div>
+    </div>
+    <ul class="ugc__list" role="list">
+      {%- for block in section.blocks -%}
+        <li class="ugc__item" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '300, 500, 800', sizes: '(min-width: 990px) 25vw, 50vw', alt: block.settings.image.alt }}
+          {%- else -%}
+            <div class="ugc__placeholder"></div>
+          {%- endif -%}
+          {%- if block.settings.handle != blank -%}
+            <p class="ugc__credit">
+              {%- if block.settings.link != blank -%}
+                <a href="{{ block.settings.link }}" target="_blank" rel="noopener">{{ block.settings.handle }}</a>
+              {%- else -%}
+                {{ block.settings.handle }}
+              {%- endif -%}
+              {%- if block.settings.frame != blank %} · {{ block.settings.frame.title }}{% endif -%}
+            </p>
+          {%- endif -%}
+        </li>
+      {%- else -%}
+        <li class="ugc__empty">{{ 'general.design_mode_ugc' | t }}</li>
+      {%- endfor -%}
+    </ul>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Worn by you",
+  "tag": "div",
+  "class": "section-ugc",
+  "settings": [
+    { "type": "paragraph", "content": "Only real photos from customers or credited creators. The section hides itself until you add one." },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Gedragen door jou." },
+    { "type": "text", "id": "text", "label": "Text", "default": "Tag @carfo om hier te komen." }
+  ],
+  "blocks": [
+    {
+      "type": "photo",
+      "name": "Photo",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo" },
+        { "type": "text", "id": "handle", "label": "Credit", "info": "e.g. @name" },
+        { "type": "url", "id": "link", "label": "Credit link" },
+        { "type": "product", "id": "frame", "label": "Frame worn" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [{ "name": "Worn by you" }]
+}
+{% endschema %}

@@ -1,0 +1,243 @@
+{%- liquid
+  assign m = product.metafields.carfo
+  assign variant = product.selected_or_first_available_variant
+  assign frames = settings.frames_collection | default: collections.all
+  assign extra_money = settings.extra_pair_price | times: 100 | round | money_without_trailing_zeros
+  assign is_frame = false
+  if product.type == settings.frame_type
+    assign is_frame = true
+  endif
+  assign has_others = false
+  for p in frames.products
+    if p.id != product.id and p.available
+      assign has_others = true
+      break
+    endif
+  endfor
+  assign show_sets = false
+  if is_frame and has_others and section.settings.show_sets
+    assign show_sets = true
+  endif
+  assign start_pairs = 1
+  if show_sets
+    assign start_pairs = section.settings.default_tier | plus: 0
+  endif
+  capture start_price
+    render 'set-price', pairs: start_pairs, base: variant.price
+  endcapture
+  assign form_id = 'ProductForm-' | append: section.id
+-%}
+
+<section class="product page-width">
+  <media-gallery class="gallery">
+    <ul class="gallery__track" role="list" data-track>
+      {%- for media in product.media -%}
+        <li class="gallery__slide{% if media.preview_image.aspect_ratio < 1 %} gallery__slide--tall{% endif %}">
+          {%- liquid
+            assign loading = 'lazy'
+            if forloop.first
+              assign loading = 'eager'
+            endif
+          -%}
+          {{ media.preview_image | image_url: width: 1800 | image_tag: loading: loading, widths: '600, 900, 1200, 1500, 1800', sizes: '(min-width: 990px) 58vw, 100vw', alt: media.alt | default: product.title }}
+        </li>
+      {%- else -%}
+        <li class="gallery__slide gallery__slide--sketch">
+          {% render 'frame-sketch', tint: m.tint_hex.value, alpha: m.tint_alpha.value, frame: m.frame_hex.value, label: product.title %}
+          <p class="label gallery__note">{{ 'products.photos_soon' | t }}</p>
+        </li>
+      {%- endfor -%}
+    </ul>
+    {%- if product.media.size > 1 -%}
+      <div class="gallery__dots" aria-hidden="true">
+        {%- for media in product.media -%}
+          <span class="gallery__dot{% if forloop.first %} is-active{% endif %}"></span>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </media-gallery>
+
+  <div class="product__info">
+    <div class="product__head">
+      <h1 class="product__title">{{ product.title }}</h1>
+      {%- if m.colourway != blank -%}<p class="product__colour">{{ m.colourway.value }}</p>{%- endif -%}
+      <p class="product__price">
+        <span data-unit-price>{{ variant.price | money }}</span>
+        {%- if is_frame -%}<span class="product__extra"> · {{ 'products.every_extra' | t: price: extra_money }}</span>{%- endif -%}
+      </p>
+    </div>
+
+    {%- for block in section.blocks -%}
+      <div class="product__app" {{ block.shopify_attributes }}>{% render block %}</div>
+    {%- endfor -%}
+
+    {%- if m.one_liner != blank -%}<p class="product__oneliner">{{ m.one_liner.value }}</p>{%- endif -%}
+
+    {%- if m.fit != blank or m.uv400 != blank or m.filter_category != blank -%}
+      <ul class="spec-chips" role="list">
+        {%- if m.fit != blank -%}
+          <li class="chip">{% render 'fit-label', fit: m.fit.value %}{% if m.frame_width_mm != blank %} · {{ m.frame_width_mm.value }} mm{% endif %}</li>
+        {%- endif -%}
+        {%- if m.uv400.value or m.filter_category != blank -%}
+          <li class="chip">{% if m.uv400.value %}UV400{% endif %}{% if m.uv400.value and m.filter_category != blank %} · {% endif %}{% if m.filter_category != blank %}{{ 'products.category_short' | t: category: m.filter_category.value }}{% endif %}</li>
+        {%- endif -%}
+        {%- if m.polarized.value -%}<li class="chip">{{ 'products.polarized' | t }}</li>{%- endif -%}
+      </ul>
+    {%- endif -%}
+
+    {%- form 'product', product, id: form_id, class: 'product__form', novalidate: 'novalidate', data-product-form: '' -%}
+      <input type="hidden" name="id" value="{{ variant.id }}" data-variant-id>
+
+      {%- unless product.has_only_default_variant -%}
+        <div class="variant-select">
+          <label class="label" for="Variant-{{ section.id }}">{{ product.options.first }}</label>
+          <select id="Variant-{{ section.id }}" class="field" data-variant-select>
+            {%- for v in product.variants -%}
+              <option value="{{ v.id }}" data-price="{{ v.price }}"{% if v.id == variant.id %} selected{% endif %}{% unless v.available %} disabled{% endunless %}>{{ v.title }}{% unless v.available %} · {{ 'products.sold_out' | t }}{% endunless %}</option>
+            {%- endfor -%}
+          </select>
+        </div>
+      {%- endunless -%}
+
+      {%- if show_sets -%}
+        {% render 'bundle-selector', product: product, frames: frames, section: section %}
+      {%- endif -%}
+
+      <button type="submit" class="btn btn--block product__submit" data-submit{% unless variant.available %} disabled{% endunless %}>
+        <span data-submit-label>
+          {%- if variant.available -%}
+            {{ 'products.add_with_price' | t: price: start_price }}
+          {%- else -%}
+            {{ 'products.sold_out' | t }}
+          {%- endif -%}
+        </span>
+      </button>
+      <p class="form-error" role="alert" data-form-error hidden></p>
+    {%- endform -%}
+
+    <ul class="product__notes" role="list">
+      {%- if section.settings.delivery_note != blank -%}<li>{% render 'icon', name: 'truck' %} {{ section.settings.delivery_note }}</li>{%- endif -%}
+      <li>{% render 'icon', name: 'return' %} {{ 'products.free_returns' | t }}</li>
+      {%- if section.settings.payment_note != blank -%}<li class="product__pay">{{ section.settings.payment_note }}</li>{%- endif -%}
+    </ul>
+
+    <div class="product__accordions">
+      <details class="accordion" open>
+        <summary class="accordion__summary">{{ 'products.details' | t }}{% render 'icon', name: 'plus' %}</summary>
+        <div class="accordion__content">
+          {%- if product.description != blank -%}<div class="rte">{{ product.description }}</div>{%- endif -%}
+          {%- if m.frame_width_mm != blank or m.lens_width_mm != blank or m.material != blank -%}
+            <dl class="specs">
+              {%- if m.frame_width_mm != blank -%}<div><dt>{{ 'products.frame_width' | t }}</dt><dd>{{ m.frame_width_mm.value }} mm</dd></div>{%- endif -%}
+              {%- if m.lens_width_mm != blank -%}<div><dt>{{ 'products.lens_width' | t }}</dt><dd>{{ m.lens_width_mm.value }} mm</dd></div>{%- endif -%}
+              {%- if m.bridge_mm != blank -%}<div><dt>{{ 'products.bridge' | t }}</dt><dd>{{ m.bridge_mm.value }} mm</dd></div>{%- endif -%}
+              {%- if m.temple_mm != blank -%}<div><dt>{{ 'products.temple' | t }}</dt><dd>{{ m.temple_mm.value }} mm</dd></div>{%- endif -%}
+              {%- if m.fit != blank -%}<div><dt>{{ 'products.fit' | t }}</dt><dd>{% render 'fit-label', fit: m.fit.value %}</dd></div>{%- endif -%}
+              {%- if m.material != blank -%}<div><dt>{{ 'products.material' | t }}</dt><dd>{{ m.material.value }}</dd></div>{%- endif -%}
+              {%- if m.weight_g != blank -%}<div><dt>{{ 'products.weight' | t }}</dt><dd>{{ m.weight_g.value }} g</dd></div>{%- endif -%}
+            </dl>
+          {%- endif -%}
+          {%- if section.settings.size_page_link != blank -%}
+            <a class="text-link" href="{{ section.settings.size_page_link }}">{{ 'products.size_guide' | t }} {% render 'icon', name: 'arrow' %}</a>
+          {%- endif -%}
+        </div>
+      </details>
+
+      {%- if m.uv400 != blank or m.filter_category != blank or m.polarized != blank or m.lens_note != blank -%}
+        <details class="accordion">
+          <summary class="accordion__summary">{{ 'products.lens' | t }}{% render 'icon', name: 'plus' %}</summary>
+          <div class="accordion__content">
+            <dl class="specs">
+              {%- if m.uv400 != blank -%}<div><dt>UV400</dt><dd>{% if m.uv400.value %}{{ 'general.yes' | t }}{% else %}{{ 'general.no' | t }}{% endif %}</dd></div>{%- endif -%}
+              {%- if m.filter_category != blank -%}<div><dt>{{ 'products.filter_category' | t }}</dt><dd>{{ m.filter_category.value }}</dd></div>{%- endif -%}
+              {%- if m.polarized != blank -%}<div><dt>{{ 'products.polarized' | t }}</dt><dd>{% if m.polarized.value %}{{ 'general.yes' | t }}{% else %}{{ 'general.no' | t }}{% endif %}</dd></div>{%- endif -%}
+            </dl>
+            {%- if m.lens_note != blank -%}<p>{{ m.lens_note.value }}</p>{%- endif -%}
+            {%- if m.filter_category.value == 4 -%}<p class="warning">{{ 'products.category_4_warning' | t }}</p>{%- endif -%}
+          </div>
+        </details>
+      {%- endif -%}
+
+      <details class="accordion">
+        <summary class="accordion__summary">{{ 'products.in_the_box' | t }}{% render 'icon', name: 'plus' %}</summary>
+        <div class="accordion__content"><p>{{ m.in_the_box.value | default: section.settings.in_the_box }}</p></div>
+      </details>
+
+      {%- if section.settings.shipping_returns != blank -%}
+        <details class="accordion">
+          <summary class="accordion__summary">{{ 'products.shipping_returns' | t }}{% render 'icon', name: 'plus' %}</summary>
+          <div class="accordion__content rte">{{ section.settings.shipping_returns }}</div>
+        </details>
+      {%- endif -%}
+
+      {%- if section.settings.care != blank -%}
+        <details class="accordion">
+          <summary class="accordion__summary">{{ 'products.care' | t }}{% render 'icon', name: 'plus' %}</summary>
+          <div class="accordion__content rte">{{ section.settings.care }}</div>
+        </details>
+      {%- endif -%}
+
+      <details class="accordion">
+        <summary class="accordion__summary">{{ 'products.safety' | t }}{% render 'icon', name: 'plus' %}</summary>
+        <div class="accordion__content rte">
+          {%- if m.safety_info != blank -%}{{ m.safety_info.value | newline_to_br }}{%- else -%}{{ settings.safety_info }}{%- endif -%}
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<sticky-atc class="sticky-atc" data-form="{{ form_id }}" hidden>
+  <div class="sticky-atc__inner">
+    <p class="sticky-atc__title">{{ product.title }}</p>
+    <button type="button" class="btn" data-sticky-submit{% unless variant.available %} disabled{% endunless %}>
+      <span data-sticky-label>{{ 'products.add_with_price' | t: price: start_price }}</span>
+    </button>
+  </div>
+</sticky-atc>
+
+<script type="application/ld+json">
+  {{ product | structured_data }}
+</script>
+
+{% schema %}
+{
+  "name": "Product",
+  "tag": "div",
+  "class": "section-main-product",
+  "settings": [
+    { "type": "checkbox", "id": "show_sets", "label": "Show set selector", "default": true },
+    {
+      "type": "select",
+      "id": "default_tier",
+      "label": "Selected by default",
+      "options": [{ "value": "1", "label": "1 pair" }, { "value": "2", "label": "2 pairs" }],
+      "default": "2"
+    },
+    { "type": "text", "id": "tier_1_name", "label": "1 pair", "default": "1 bril" },
+    { "type": "text", "id": "tier_2_name", "label": "2 pairs", "default": "Duo" },
+    { "type": "text", "id": "tier_2_badge", "label": "Badge, 2 pairs", "default": "Meest gekozen" },
+    { "type": "text", "id": "tier_3_name", "label": "3 pairs", "default": "Crew" },
+    { "type": "text", "id": "tier_3_badge", "label": "Badge, 3 pairs", "default": "Beste deal" },
+    { "type": "header", "content": "Notes" },
+    { "type": "text", "id": "delivery_note", "label": "Delivery promise", "info": "Only if true, e.g. 'Voor 22:00 besteld, morgen in huis'." },
+    { "type": "text", "id": "payment_note", "label": "Payment line", "default": "Betaal met iDEAL, Klarna of Apple Pay" },
+    { "type": "url", "id": "size_page_link", "label": "Size & fit page" },
+    { "type": "header", "content": "Accordions" },
+    { "type": "text", "id": "in_the_box", "label": "In the box (default)", "default": "Hard etui en een microvezeldoekje." },
+    {
+      "type": "richtext",
+      "id": "shipping_returns",
+      "label": "Shipping & returns",
+      "default": "<p>Gratis verzending vanaf 2 brillen. 30 dagen gratis retourneren: je krijgt een retourlabel per mail.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "care",
+      "label": "Care",
+      "default": "<p>Spoel af met lauw water, droog met het doekje en bewaar hem in het etui.</p>"
+    }
+  ],
+  "blocks": [{ "type": "@app" }]
+}
+{% endschema %}

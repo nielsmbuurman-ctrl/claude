@@ -1,0 +1,28 @@
+{%- comment -%}
+  Config for assets/carfo.js. Strings use [price] / [count] markers that the script fills in.
+{%- endcomment -%}
+{%- liquid
+  assign single_cents = settings.single_price | times: 100 | round
+  assign extra_cents = settings.extra_pair_price | times: 100 | round
+-%}
+<script>
+  window.Carfo = {
+    routes: {
+      root: {{ routes.root_url | json }},
+      cart: {{ routes.cart_url | json }},
+      cartAdd: {{ routes.cart_add_url | json }},
+      cartChange: {{ routes.cart_change_url | json }}
+    },
+    moneyFormat: {{ shop.money_format | json }},
+    singleCents: {{ single_cents | json }},
+    extraCents: {{ extra_cents | json }},
+    strings: {
+      addWithPrice: {{ 'products.add_with_price' | t: price: '[price]' | json }},
+      pickOne: {{ 'products.pick_one_more' | t | json }},
+      pickMore: {{ 'products.pick_more' | t: count: '[count]' | json }},
+      picked: {{ 'sets.picked' | t: picked: '[picked]', total: '[total]' | json }},
+      addError: {{ 'cart.add_error' | t | json }},
+      soldOut: {{ 'products.sold_out' | t | json }}
+    }
+  };
+</script>

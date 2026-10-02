@@ -1,0 +1,20 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "blocks": {
+        "msg-1": { "type": "message", "settings": { "text": "€19,95 per bril · elke extra bril €15", "link": "" } },
+        "msg-2": { "type": "message", "settings": { "text": "Gratis verzending vanaf 2 brillen · 30 dagen gratis retourneren", "link": "" } }
+      },
+      "block_order": ["msg-1", "msg-2"],
+      "settings": { "interval": 4 }
+    },
+    "header": {
+      "type": "header",
+      "settings": { "menu": "main-menu" }
+    }
+  },
+  "order": ["announcement", "header"]
+}

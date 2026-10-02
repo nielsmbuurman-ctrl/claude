@@ -1,0 +1,122 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "overlay": 15,
+        "text_color": "light",
+        "height": "full",
+        "eyebrow": "Carfo · 10 brillen",
+        "heading": "Tien brillen. Geen opvullers.",
+        "text": "UV400-zonnebrillen voor €19,95. Elke extra bril €15.",
+        "button_label": "Bekijk alle 10",
+        "button_link": "",
+        "link_label": "Stel je set samen",
+        "link_url": "/pages/build-your-set"
+      }
+    },
+    "proof": {
+      "type": "proof-bar",
+      "blocks": {
+        "p1": { "type": "item", "settings": { "icon": "uv", "text": "UV400 · CE-gemarkeerd" } },
+        "p2": { "type": "item", "settings": { "icon": "case", "text": "Hard etui in elke doos" } },
+        "p3": { "type": "item", "settings": { "icon": "truck", "text": "Gratis verzending vanaf 2 brillen" } },
+        "p4": { "type": "item", "settings": { "icon": "return", "text": "30 dagen gratis retourneren" } }
+      },
+      "block_order": ["p1", "p2", "p3", "p4"]
+    },
+    "ten": {
+      "type": "product-grid",
+      "settings": {
+        "heading": "Alle tien. Eén pagina.",
+        "text": "Kies de ene. Pak de volgende voor €15.",
+        "limit": 10,
+        "show_filters": true,
+        "exclude_current": false,
+        "add_label": "plus",
+        "button_label": "",
+        "editorial_position": 4,
+        "editorial_caption": ""
+      }
+    },
+    "sets": {
+      "type": "bundle-tiers",
+      "settings": {
+        "heading": "Eén voor jou. Eén voor wie er naast je staat.",
+        "name_1": "1 bril",
+        "name_2": "Duo",
+        "badge_2": "Meest gekozen",
+        "name_3": "Crew",
+        "badge_3": "Beste deal",
+        "button_label": "Stel je set samen",
+        "button_link": "/pages/build-your-set"
+      }
+    },
+    "loupe": {
+      "type": "lens-loupe",
+      "settings": {
+        "mode": "all",
+        "heading": "Zie het voor je hem draagt.",
+        "heading_single": "Kijk door [frame].",
+        "text": "Beweeg over de foto om door elk glas te kijken."
+      }
+    },
+    "quiz": {
+      "type": "callout",
+      "settings": {
+        "style": "tile",
+        "heading": "Welke bril is van jou?",
+        "text": "Drie vragen. Twintig seconden. Twee matches.",
+        "button_label": "Vind mijn bril",
+        "button_link": "/pages/find-your-frame"
+      }
+    },
+    "quality": {
+      "type": "features",
+      "settings": { "heading": "Kleine prijs. Geen shortcuts." },
+      "blocks": {
+        "f1": { "type": "feature", "settings": { "title": "UV400-glazen.", "text": "Houden UVA en UVB tegen. CE-gemarkeerd, de categorie staat op elke productpagina." } },
+        "f2": { "type": "feature", "settings": { "title": "Gemeten in millimeters.", "text": "Elke bril vermeldt zijn breedte, zodat je weet dat hij past voordat hij er is." } },
+        "f3": { "type": "feature", "settings": { "title": "Hard etui, bij elke bril.", "text": "Geen zakje. Een etui." } },
+        "f4": { "type": "feature", "settings": { "title": "Gratis retourneren.", "text": "Twijfel? Stuur hem terug. Het label is van ons." } }
+      },
+      "block_order": ["f1", "f2", "f3", "f4"]
+    },
+    "ugc": {
+      "type": "ugc-wall",
+      "settings": { "heading": "Gedragen door jou.", "text": "Tag @carfo om hier te komen." }
+    },
+    "story": {
+      "type": "image-with-text",
+      "settings": {
+        "image_position": "left",
+        "heading": "Waarom tien?",
+        "text": "<p>De meeste merken lanceren honderd brillen om er tien goede te vinden. Wij begonnen met de tien. Elke bril heeft een naam, een taak en een plek waar hij hoort: een terras, een mainstage, een maandag.</p>",
+        "link_label": "Ons verhaal",
+        "link_url": "/pages/our-story"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "settings": { "heading": "Vragen" },
+      "blocks": {
+        "q1": { "type": "question", "settings": { "question": "Past hij op mijn gezicht?", "answer": "<p>Elke bril vermeldt zijn breedte in millimeters en een pasvorm (smal, medium, breed). Houd een bril die je hebt tegen een liniaal en vergelijk. Past hij toch niet? Retourneren is gratis.</p>" } },
+        "q2": { "type": "question", "settings": { "question": "Zijn de glazen veilig?", "answer": "<p>Alle glazen zijn UV400 en CE-gemarkeerd. De filtercategorie staat op elke productpagina. Categorie 4 is niet geschikt om mee auto te rijden.</p>" } },
+        "q3": { "type": "question", "settings": { "question": "Mag ik alles combineren?", "answer": "<p>Ja. Twee brillen naar keuze voor €34,95, drie voor €49,95. Elke extra bril is €15.</p>" } },
+        "q4": { "type": "question", "settings": { "question": "Hoe snel heb ik hem?", "answer": "<p>[Je bestelling gaat binnen 1 werkdag de deur uit. In Nederland heb je hem meestal binnen 1–2 dagen, in België en Duitsland binnen 2–3 dagen.]</p>" } },
+        "q5": { "type": "question", "settings": { "question": "Wat als ik hem niet mooi vind?", "answer": "<p>Stuur hem binnen 30 dagen terug. Retourneren is gratis: je krijgt een label per mail.</p>" } }
+      },
+      "block_order": ["q1", "q2", "q3", "q4", "q5"]
+    },
+    "signup": {
+      "type": "email-capture",
+      "settings": {
+        "heading": "Als eerste bij nieuwe brillen.",
+        "text": "Plus een gratis koord bij je eerste bestelling. Alleen drops, geen spam.",
+        "button": "Ik doe mee",
+        "success": "Je staat erop. Check je inbox."
+      }
+    }
+  },
+  "order": ["hero", "proof", "ten", "sets", "loupe", "quiz", "quality", "ugc", "story", "faq", "signup"]
+}

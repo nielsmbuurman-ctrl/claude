@@ -1,0 +1,4 @@
+<button type="button" class="pick" data-pick="{{ p.selected_or_first_available_variant.id }}" aria-pressed="false">
+  <span class="pick__media">{% render 'frame-media', product: p, width: 240, sizes: '96px' %}</span>
+  <span class="pick__name">{{ p.title }}</span>
+</button>

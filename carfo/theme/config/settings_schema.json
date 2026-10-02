@@ -1,0 +1,129 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Carfo",
+    "theme_version": "0.1.0",
+    "theme_author": "Carfo",
+    "theme_documentation_url": "https://github.com/nielsmbuurman-ctrl/claude/tree/main/carfo/theme",
+    "theme_support_url": "https://github.com/nielsmbuurman-ctrl/claude"
+  },
+  {
+    "name": "Sets & prices",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "These numbers drive every set price shown on the site. Your discount app must use exactly the same numbers, because the theme only displays prices; the app applies them at checkout."
+      },
+      {
+        "type": "collection",
+        "id": "frames_collection",
+        "label": "Frames collection",
+        "info": "The collection that holds all ten frames."
+      },
+      {
+        "type": "text",
+        "id": "frame_type",
+        "label": "Product type of frames",
+        "default": "Zonnebril",
+        "info": "Used to count pairs in the bag. Give every frame this product type."
+      },
+      {
+        "type": "text",
+        "id": "single_price",
+        "label": "Price of one frame (€)",
+        "default": "19.95"
+      },
+      {
+        "type": "text",
+        "id": "extra_pair_price",
+        "label": "Price of every extra frame (€)",
+        "default": "15"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_threshold",
+        "label": "Free shipping from (€)",
+        "default": "25",
+        "info": "Must match the free shipping rate in Settings > Shipping."
+      },
+      {
+        "type": "text",
+        "id": "single_shipping_price",
+        "label": "Shipping below the threshold (€)",
+        "default": "3.95"
+      },
+      {
+        "type": "range",
+        "id": "gift_from_pairs",
+        "label": "Free cord from this many pairs",
+        "min": 2,
+        "max": 5,
+        "step": 1,
+        "default": 3
+      },
+      {
+        "type": "product",
+        "id": "gift_product",
+        "label": "Free gift product (cord)",
+        "info": "Set up a Buy X Get Y discount that makes this product free from the pair count above."
+      },
+      {
+        "type": "product_list",
+        "id": "cart_addons",
+        "label": "Add-ons in the bag",
+        "limit": 3
+      }
+    ]
+  },
+  {
+    "name": "Colours",
+    "settings": [
+      { "type": "color", "id": "color_bg", "label": "Background", "default": "#FFFFFF" },
+      { "type": "color", "id": "color_tile", "label": "Product tile", "default": "#F2F1EE", "info": "Match the backdrop of your packshots." },
+      { "type": "color", "id": "color_ink", "label": "Text and buttons", "default": "#111111" },
+      { "type": "color", "id": "color_mute", "label": "Secondary text", "default": "#6B6B6B" },
+      { "type": "color", "id": "color_line", "label": "Lines", "default": "#E4E2DD" },
+      { "type": "color", "id": "color_accent", "label": "Accent", "default": "#FF5A1F", "info": "Badges and the progress bar only." }
+    ]
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      { "type": "text", "id": "wordmark", "label": "Wordmark text", "default": "CARFO" },
+      { "type": "image_picker", "id": "logo", "label": "Logo image", "info": "Optional. Replaces the wordmark text." },
+      { "type": "range", "id": "logo_width", "label": "Logo width", "min": 60, "max": 240, "step": 4, "unit": "px", "default": 104 },
+      { "type": "image_picker", "id": "favicon", "label": "Favicon", "info": "32 × 32 px" }
+    ]
+  },
+  {
+    "name": "Company details",
+    "settings": [
+      { "type": "paragraph", "content": "Dutch web shops must show these. They appear in the footer." },
+      { "type": "text", "id": "company_name", "label": "Company name", "default": "Carfo" },
+      { "type": "text", "id": "company_kvk", "label": "KvK number" },
+      { "type": "text", "id": "company_vat", "label": "VAT number" },
+      { "type": "textarea", "id": "company_address", "label": "Address" },
+      { "type": "text", "id": "company_email", "label": "Email" }
+    ]
+  },
+  {
+    "name": "Product safety",
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "safety_info",
+        "label": "Default safety information (GPSR)",
+        "default": "<p>Manufacturer: [name], [address]. CE marked, tested to EN ISO 12312-1. Not suitable for driving at night. Never look directly at the sun.</p>",
+        "info": "Shown on every frame. A frame's own safety_info metafield replaces it."
+      }
+    ]
+  },
+  {
+    "name": "Social",
+    "settings": [
+      { "type": "text", "id": "social_handle", "label": "Instagram handle", "default": "@carfo" },
+      { "type": "url", "id": "social_instagram", "label": "Instagram" },
+      { "type": "url", "id": "social_tiktok", "label": "TikTok" }
+    ]
+  }
+]

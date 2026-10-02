@@ -729,6 +729,9 @@ beats polished brand content on cost per click. Three starter scripts:
 A custom Online Store 2.0 theme, built only for ten products and this funnel.
 Small, fast, and fully editable in the theme editor.
 
+**Status: built (v0.1.0) in `carfo/theme/`.** Store setup steps are in
+`carfo/theme/README.md`; a local preview with cart-flow checks is in `carfo/dev/`.
+
 ### Principles
 
 - **Sections everywhere.** Every block on every page is a section with

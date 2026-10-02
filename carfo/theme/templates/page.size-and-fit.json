@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": { "type": "main-page", "settings": {} },
+    "table": {
+      "type": "size-table",
+      "settings": {
+        "heading": "Maten van alle tien",
+        "text": "<p>Houd je favoriete zonnebril tegen een liniaal, van scharnier tot scharnier. Vergelijk die breedte met de tabel.</p>",
+        "note": "Past hij toch niet? Retourneren is 30 dagen gratis."
+      }
+    }
+  },
+  "order": ["main", "table"]
+}

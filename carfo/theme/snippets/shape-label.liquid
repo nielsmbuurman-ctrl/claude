@@ -1,0 +1,15 @@
+{%- liquid
+  assign s = shape | downcase
+  case s
+    when 'slim'
+      echo 'filters.slim' | t
+    when 'bold'
+      echo 'filters.bold' | t
+    when 'tinted'
+      echo 'filters.tinted' | t
+    when 'clear'
+      echo 'filters.clear' | t
+    else
+      echo shape | capitalize
+  endcase
+-%}

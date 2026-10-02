@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "build-your-set",
+      "settings": {
+        "heading": "Stel je set samen.",
+        "text": "€19,95 voor de eerste. €15 voor elke volgende. Verzending gratis vanaf twee.",
+        "default_size": "2"
+      }
+    }
+  },
+  "order": ["main"]
+}

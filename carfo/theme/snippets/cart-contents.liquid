@@ -1,0 +1,188 @@
+{%- comment -%}
+  Bag contents for the drawer and the cart page.
+  Usage: render 'cart-contents', context: 'drawer'
+{%- endcomment -%}
+{%- liquid
+  assign frames = settings.frames_collection | default: collections.all
+  assign threshold = settings.free_shipping_threshold | times: 100 | round
+  assign single_shipping = settings.single_shipping_price | times: 100 | round
+  assign extra_money = settings.extra_pair_price | times: 100 | round | money_without_trailing_zeros
+
+  assign pairs = 0
+  assign gift_in_cart = false
+  assign cart_ids = ''
+  for item in cart.items
+    if item.product.type == settings.frame_type
+      assign pairs = pairs | plus: item.quantity
+    endif
+    if settings.gift_product != blank and item.product.id == settings.gift_product.id
+      assign gift_in_cart = true
+    endif
+    assign cart_ids = cart_ids | append: '|' | append: item.product.id | append: '|'
+  endfor
+
+  assign gift_from = settings.gift_from_pairs
+  assign free_shipping = false
+  if cart.total_price >= threshold
+    assign free_shipping = true
+  endif
+-%}
+
+{%- if cart.item_count == 0 -%}
+  <div class="bag-empty">
+    <p class="bag-empty__title">{{ 'cart.empty' | t }}</p>
+    <a class="btn" href="{{ frames.url | default: routes.all_products_collection_url }}">{{ 'cart.shop_all' | t }}</a>
+  </div>
+{%- else -%}
+  {%- if pairs > 0 -%}
+    {%- liquid
+      if pairs == 1
+        assign progress = 50
+        assign progress_text = 'cart.progress_one' | t: price: extra_money
+      elsif pairs < gift_from
+        assign progress = 80
+        assign progress_text = 'cart.progress_two' | t: price: extra_money
+      else
+        assign progress = 100
+        assign progress_text = 'cart.progress_three' | t: price: extra_money
+      endif
+    -%}
+    <div class="bag-progress">
+      <p class="bag-progress__text">{{ progress_text }}</p>
+      <div class="bag-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ progress }}" aria-label="{{ progress_text | escape }}">
+        <span style="width: {{ progress }}%"></span>
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- if settings.gift_product != blank and pairs >= gift_from and gift_in_cart == false and settings.gift_product.available -%}
+    <button class="bag-gift" type="button" data-add-variant="{{ settings.gift_product.selected_or_first_available_variant.id }}">
+      {% render 'icon', name: 'plus' %}
+      <span>{{ 'cart.add_gift' | t: title: settings.gift_product.title }}</span>
+    </button>
+  {%- endif -%}
+
+  {%- if request.design_mode and pairs > 1 and cart.total_discount == 0 -%}
+    <p class="bag-warning">{{ 'cart.no_set_discount' | t }}</p>
+  {%- endif -%}
+
+  <ul class="bag-lines" role="list">
+    {%- for item in cart.items -%}
+      {%- assign m = item.product.metafields.carfo -%}
+      <li class="line">
+        <a class="line__media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+          {%- if item.image -%}
+            {{ item.image | image_url: width: 240 | image_tag: loading: 'lazy', width: 120, height: 120, alt: '' }}
+          {%- else -%}
+            {% render 'frame-sketch', tint: m.tint_hex.value, alpha: m.tint_alpha.value, label: item.product.title %}
+          {%- endif -%}
+        </a>
+        <div class="line__info">
+          <a class="line__title" href="{{ item.url }}">{{ item.product.title }}</a>
+          {%- if m.colourway != blank -%}
+            <p class="line__meta">{{ m.colourway.value }}</p>
+          {%- endif -%}
+          {%- unless item.product.has_only_default_variant -%}
+            <p class="line__meta">{{ item.variant.title }}</p>
+          {%- endunless -%}
+          {%- for allocation in item.line_level_discount_allocations -%}
+            <p class="line__discount">{{ allocation.discount_application.title }}</p>
+          {%- endfor -%}
+          <div class="qty" aria-label="{{ 'cart.quantity' | t }}">
+            <a class="qty__btn" href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity={{ item.quantity | minus: 1 }}" data-line="{{ forloop.index }}" data-qty="{{ item.quantity | minus: 1 }}" aria-label="{{ 'cart.decrease' | t: title: item.product.title | escape }}">{% render 'icon', name: 'minus' %}</a>
+            <span class="qty__value">{{ item.quantity }}</span>
+            <a class="qty__btn" href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity={{ item.quantity | plus: 1 }}" data-line="{{ forloop.index }}" data-qty="{{ item.quantity | plus: 1 }}" aria-label="{{ 'cart.increase' | t: title: item.product.title | escape }}">{% render 'icon', name: 'plus' %}</a>
+          </div>
+        </div>
+        <div class="line__end">
+          <p class="line__price">
+            {%- if item.original_line_price > item.final_line_price -%}
+              <s>{{ item.original_line_price | money }}</s>
+            {%- endif -%}
+            <span>{{ item.final_line_price | money }}</span>
+          </p>
+          <a class="line__remove" href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity=0" data-line="{{ forloop.index }}" data-qty="0">{{ 'cart.remove' | t }}</a>
+        </div>
+      </li>
+    {%- endfor -%}
+  </ul>
+
+  {%- if pairs > 0 and frames.products_count > 1 -%}
+    {%- liquid
+      assign suggest_label = 'products.extra_short' | t: price: extra_money
+      assign shown = 0
+    -%}
+    <div class="bag-suggest">
+      <p class="label">{{ 'cart.suggest' | t }}</p>
+      <ul class="bag-suggest__list" role="list">
+        {%- for p in frames.products -%}
+          {%- liquid
+            assign key = '|' | append: p.id | append: '|'
+            assign show_it = true
+            if shown >= 3 or p.available == false
+              assign show_it = false
+            endif
+            if cart_ids contains key
+              assign show_it = false
+            endif
+          -%}
+          {%- if show_it -%}
+            {%- assign shown = shown | plus: 1 -%}
+            <li class="mini">
+              <a class="mini__media" href="{{ p.url }}" tabindex="-1" aria-hidden="true">{% render 'frame-media', product: p, width: 240, sizes: '80px' %}</a>
+              <a class="mini__title" href="{{ p.url }}">{{ p.title }}</a>
+              <button type="button" class="mini__add" data-add-variant="{{ p.selected_or_first_available_variant.id }}" aria-label="{{ 'products.quick_add' | t: title: p.title | escape }}">{{ suggest_label }}</button>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  {%- endif -%}
+
+  {%- if settings.cart_addons != blank -%}
+    <ul class="bag-addons" role="list">
+      {%- for p in settings.cart_addons -%}
+        {%- assign key = '|' | append: p.id | append: '|' -%}
+        {%- unless cart_ids contains key or p.available == false -%}
+          <li class="addon">
+            <span>{{ p.title }} · {{ p.price | money }}</span>
+            <button type="button" class="link-btn" data-add-variant="{{ p.selected_or_first_available_variant.id }}">{{ 'cart.add' | t }}</button>
+          </li>
+        {%- endunless -%}
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+
+  <div class="bag-summary">
+    {%- if cart.total_discount > 0 -%}
+      <p class="bag-row bag-row--save"><span>{{ 'cart.you_save' | t }}</span><span>{{ cart.total_discount | money }}</span></p>
+    {%- endif -%}
+    {%- for discount in cart.cart_level_discount_applications -%}
+      <p class="bag-row"><span>{{ discount.title }}</span><span>-{{ discount.total_allocated_amount | money }}</span></p>
+    {%- endfor -%}
+    <p class="bag-row">
+      <span>{{ 'cart.shipping' | t }}</span>
+      <span>
+        {%- if free_shipping -%}
+          {{ 'cart.free' | t }}
+        {%- else -%}
+          {{ single_shipping | money }}
+        {%- endif -%}
+      </span>
+    </p>
+    <form action="{{ routes.cart_url }}" method="post" class="bag-checkout">
+      <button class="btn btn--block" type="submit" name="checkout">
+        {%- assign checkout_money = cart.total_price | money -%}
+        {{ 'cart.checkout' | t: price: checkout_money }}
+      </button>
+    </form>
+    <p class="bag-note">{% render 'icon', name: 'return' %} {{ 'products.free_returns' | t }}</p>
+    {%- if shop.enabled_payment_types.size > 0 -%}
+      <ul class="payment-icons payment-icons--small" role="list">
+        {%- for type in shop.enabled_payment_types -%}
+          <li>{{ type | payment_type_svg_tag: class: 'payment-icon' }}</li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+{%- endif -%}

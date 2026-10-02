@@ -1,0 +1,45 @@
+{%- comment -%}
+  Usage: render 'product-card', product: product, add_label: '+ €15'
+{%- endcomment -%}
+{%- liquid
+  assign m = product.metafields.carfo
+  assign shape = m.shape.value | default: '' | downcase
+  assign variant = product.selected_or_first_available_variant
+-%}
+<article class="card" data-shape="{{ shape }}">
+  <a class="card__media{% if product.media.size > 1 %} card__media--swap{% endif %}" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
+    {% render 'frame-media', product: product, width: 900, hover: true %}
+  </a>
+  <div class="card__info">
+    <div class="card__text">
+      <h3 class="card__title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+      {%- if m.colourway != blank -%}
+        <p class="card__colour">{{ m.colourway.value }}</p>
+      {%- endif -%}
+      <p class="card__price">
+        {%- if product.available -%}
+          {{ product.price | money }}
+        {%- else -%}
+          {{ 'products.sold_out' | t }}
+        {%- endif -%}
+      </p>
+    </div>
+    {%- if product.available -%}
+      <button
+        class="card__add"
+        type="button"
+        data-add-variant="{{ variant.id }}"
+        aria-label="{{ 'products.quick_add' | t: title: product.title | escape }}"
+      >
+        {%- if add_label != blank -%}
+          <span class="card__add-label">{{ add_label }}</span>
+        {%- else -%}
+          {% render 'icon', name: 'plus' %}
+        {%- endif -%}
+      </button>
+    {%- endif -%}
+  </div>
+  {%- if m.fit != blank -%}
+    <p class="card__chips">{% render 'fit-label', fit: m.fit.value %}{% if m.frame_width_mm != blank %} · {{ m.frame_width_mm.value }} mm{% endif %}</p>
+  {%- endif -%}
+</article>

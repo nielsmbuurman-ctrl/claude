@@ -1,0 +1,74 @@
+{%- liquid
+  assign menu = section.settings.menu
+-%}
+<sticky-header class="header" data-header>
+  <div class="header__inner page-width">
+    <details class="menu-drawer" data-menu-drawer>
+      <summary class="icon-btn menu-drawer__toggle" aria-label="{{ 'header.menu' | t }}">
+        {% render 'icon', name: 'menu' %}
+      </summary>
+      <div class="menu-drawer__panel">
+        <nav aria-label="{{ 'header.menu' | t }}">
+          <ul class="menu-drawer__list" role="list">
+            {%- for link in menu.links -%}
+              <li><a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+        <ul class="menu-drawer__meta" role="list">
+          {%- if shop.customer_accounts_enabled -%}
+            <li><a href="{{ routes.account_url }}">{{ 'header.account' | t }}</a></li>
+          {%- endif -%}
+          <li><a href="{{ routes.search_url }}">{{ 'header.search' | t }}</a></li>
+        </ul>
+      </div>
+    </details>
+
+    <nav class="header__nav" aria-label="{{ 'header.menu' | t }}">
+      <ul class="header__links" role="list">
+        {%- for link in menu.links -%}
+          <li><a class="header__link" href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a></li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    {%- if request.page_type == 'index' -%}<h1 class="header__brand">{%- else -%}<div class="header__brand">{%- endif -%}
+      <a class="header__logo" href="{{ routes.root_url }}">
+        {%- if settings.logo != blank -%}
+          {%- assign logo_h = settings.logo_width | divided_by: settings.logo.aspect_ratio | round -%}
+          {{ settings.logo | image_url: width: 480 | image_tag: width: settings.logo_width, height: logo_h, alt: shop.name, class: 'header__logo-img', loading: 'eager' }}
+        {%- else -%}
+          <span class="wordmark">{{ settings.wordmark | default: shop.name }}</span>
+        {%- endif -%}
+      </a>
+    {%- if request.page_type == 'index' -%}</h1>{%- else -%}</div>{%- endif -%}
+
+    <div class="header__icons">
+      <a class="icon-btn header__icon--desktop" href="{{ routes.search_url }}" aria-label="{{ 'header.search' | t }}">{% render 'icon', name: 'search' %}</a>
+      {%- if shop.customer_accounts_enabled -%}
+        <a class="icon-btn header__icon--desktop" href="{{ routes.account_url }}" aria-label="{{ 'header.account' | t }}">{% render 'icon', name: 'account' %}</a>
+      {%- endif -%}
+      <a class="icon-btn header__bag" href="{{ routes.cart_url }}" data-cart-open aria-label="{{ 'header.bag' | t }}">
+        {% render 'icon', name: 'bag' %}
+        <span class="bag-count" data-cart-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </div>
+</sticky-header>
+
+{% schema %}
+{
+  "name": "Header",
+  "tag": "div",
+  "class": "section-header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu",
+      "info": "Suggested: Bekijk alle 10 · Stel je set samen · Vind jouw bril"
+    }
+  ]
+}
+{% endschema %}

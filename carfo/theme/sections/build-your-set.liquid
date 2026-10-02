@@ -1,0 +1,87 @@
+{%- liquid
+  assign frames = section.settings.collection | default: settings.frames_collection | default: collections.all
+  assign extra_cents = settings.extra_pair_price | times: 100 | round
+  assign single_cents = settings.single_price | times: 100 | round
+  assign default_size = section.settings.default_size | plus: 0
+-%}
+<set-builder class="set page-width" data-base="{{ single_cents }}" data-extra="{{ extra_cents }}" data-size="{{ default_size }}">
+  <div class="section-head section-head--page">
+    <div>
+      <h1 class="h1">{{ section.settings.heading }}</h1>
+      {%- if section.settings.text != blank -%}<p class="section-head__text">{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+    <div class="set__sizes" role="radiogroup" aria-label="{{ 'sets.size_label' | t }}">
+      {%- for n in (2..4) -%}
+        <button type="button" class="size-btn" role="radio" data-size-btn="{{ n }}" aria-checked="{% if n == default_size %}true{% else %}false{% endif %}">
+          <span>{{ 'sets.pairs' | t: count: n }}</span>
+          <strong>{% render 'set-price', pairs: n %}</strong>
+        </button>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <ul class="grid set__grid" role="list">
+    {%- for p in frames.products -%}
+      {%- assign m = p.metafields.carfo -%}
+      <li class="grid__item">
+        <article class="card card--choose" data-shape="{{ m.shape.value | downcase }}">
+          <a class="card__media{% if p.media.size > 1 %} card__media--swap{% endif %}" href="{{ p.url }}" tabindex="-1" aria-hidden="true">
+            {% render 'frame-media', product: p, width: 900, hover: true %}
+          </a>
+          <div class="card__info">
+            <div class="card__text">
+              <h3 class="card__title"><a href="{{ p.url }}">{{ p.title }}</a></h3>
+              {%- if m.colourway != blank -%}<p class="card__colour">{{ m.colourway.value }}</p>{%- endif -%}
+            </div>
+            {%- if p.available -%}
+              <button type="button" class="choose-btn" data-choose="{{ p.selected_or_first_available_variant.id }}" data-title="{{ p.title | escape }}" data-thumb="{% if p.featured_media %}{{ p.featured_media | image_url: width: 160 }}{% endif %}" data-tint="{{ m.tint_hex.value | default: '#2B2B30' }}">
+                {% render 'icon', name: 'plus' %}<span>{{ 'sets.choose' | t }}</span>
+              </button>
+            {%- else -%}
+              <span class="card__price">{{ 'products.sold_out' | t }}</span>
+            {%- endif -%}
+          </div>
+        </article>
+      </li>
+    {%- endfor -%}
+  </ul>
+
+  <div class="set__bar" data-bar>
+    <div class="set__bar-inner page-width">
+      <ol class="set__slots" role="list" data-slots aria-live="polite"></ol>
+      <div class="set__total">
+        <p class="set__status" data-status></p>
+        <p class="set__price" data-total></p>
+      </div>
+      <button type="button" class="btn" data-add-set disabled>{{ 'sets.add' | t }}</button>
+    </div>
+  </div>
+  <template data-slot-template>
+    <li class="slot">
+      <button type="button" class="slot__btn" data-remove>
+        <span class="slot__media"></span>
+        <span class="visually-hidden" data-remove-label>{{ 'sets.remove' | t }}</span>
+      </button>
+    </li>
+  </template>
+</set-builder>
+
+{% schema %}
+{
+  "name": "Build your set",
+  "tag": "div",
+  "class": "section-set",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Stel je set samen." },
+    { "type": "text", "id": "text", "label": "Text", "default": "€19,95 voor de eerste. €15 voor elke volgende. Verzending gratis vanaf twee." },
+    { "type": "collection", "id": "collection", "label": "Collection", "info": "Empty = the frames collection from Theme settings" },
+    {
+      "type": "select",
+      "id": "default_size",
+      "label": "Selected set size",
+      "options": [{ "value": "2", "label": "2 pairs" }, { "value": "3", "label": "3 pairs" }, { "value": "4", "label": "4 pairs" }],
+      "default": "2"
+    }
+  ]
+}
+{% endschema %}

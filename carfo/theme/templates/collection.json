@@ -1,0 +1,25 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "text": "€19,95 per bril. Elke extra bril €15.",
+        "set_link": "/pages/build-your-set"
+      }
+    },
+    "sets": {
+      "type": "bundle-tiers",
+      "settings": {
+        "heading": "Eén voor jou. Eén voor wie er naast je staat.",
+        "name_1": "1 bril",
+        "name_2": "Duo",
+        "badge_2": "Meest gekozen",
+        "name_3": "Crew",
+        "badge_3": "Beste deal",
+        "button_label": "Stel je set samen",
+        "button_link": "/pages/build-your-set"
+      }
+    }
+  },
+  "order": ["main", "sets"]
+}

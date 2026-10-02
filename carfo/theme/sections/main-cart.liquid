@@ -1,0 +1,14 @@
+<section class="cart-page page-width page-width--narrow" data-cart-section="{{ section.id }}">
+  <h1 class="page-title">{{ 'cart.title' | t }}</h1>
+  <div data-cart-content data-count="{{ cart.item_count }}">
+    {% render 'cart-contents', context: 'page' %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cart",
+  "tag": "div",
+  "settings": []
+}
+{% endschema %}

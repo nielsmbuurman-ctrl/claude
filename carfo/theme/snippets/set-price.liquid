@@ -1,0 +1,25 @@
+{%- comment -%}
+  The price of a set: first frame + (pairs - 1) × extra-pair price.
+  Usage:
+    render 'set-price', pairs: 2                     → €34,95
+    render 'set-price', pairs: 2, base: product.price
+    render 'set-price', pairs: 2, per_pair: true      → €17,48
+    render 'set-price', pairs: 2, cents: true        → 3495
+{%- endcomment -%}
+{%- liquid
+  assign base_cents = base | default: 0
+  if base_cents == 0
+    assign base_cents = settings.single_price | times: 100 | round
+  endif
+  assign extra_cents = settings.extra_pair_price | times: 100 | round
+  assign extra_count = pairs | minus: 1
+  assign total = extra_cents | times: extra_count | plus: base_cents
+  if per_pair
+    assign total = total | times: 1.0 | divided_by: pairs | round
+  endif
+  if cents
+    echo total
+  else
+    echo total | money
+  endif
+-%}

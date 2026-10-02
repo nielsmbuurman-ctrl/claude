@@ -1,0 +1,38 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "shop": { "type": "menu", "settings": { "heading": "Shop", "menu": "main-menu" } },
+        "help": { "type": "menu", "settings": { "heading": "Hulp", "menu": "footer" } },
+        "about": {
+          "type": "text",
+          "settings": {
+            "heading": "Carfo",
+            "text": "<p>UV400-zonnebrillen. €19,95 per bril, elke extra bril €15. 30 dagen gratis retourneren.</p>"
+          }
+        }
+      },
+      "block_order": ["shop", "help", "about"],
+      "settings": { "tagline": "Tien brillen. Geen opvullers.", "show_payment_icons": true }
+    },
+    "popup": {
+      "type": "email-popup",
+      "settings": {
+        "enabled": true,
+        "delay": 15,
+        "scroll": 50,
+        "days": 14,
+        "heading": "Gratis koord bij je eerste bestelling.",
+        "text": "En als eerste bij nieuwe brillen. Alleen drops, geen spam.",
+        "button": "Claim mijn koord",
+        "success_heading": "Gelukt.",
+        "success_text": "Gebruik deze code bij het afrekenen voor je gratis koord:",
+        "code": "KOORD"
+      }
+    }
+  },
+  "order": ["footer", "popup"]
+}

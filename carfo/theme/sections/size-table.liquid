@@ -1,0 +1,51 @@
+{%- assign frames = settings.frames_collection | default: collections.all -%}
+<section class="sizes page-width">
+  <div class="section-head">
+    <div>
+      {%- if section.settings.heading != blank -%}<h2 class="h2">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<div class="section-head__text rte">{{ section.settings.text }}</div>{%- endif -%}
+    </div>
+  </div>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="{{ section.settings.heading | escape }}">
+    <table class="size-table">
+      <thead>
+        <tr>
+          <th scope="col">{{ 'sizes.frame' | t }}</th>
+          <th scope="col">{{ 'products.frame_width' | t }}</th>
+          <th scope="col">{{ 'products.lens_width' | t }}</th>
+          <th scope="col">{{ 'products.bridge' | t }}</th>
+          <th scope="col">{{ 'products.temple' | t }}</th>
+          <th scope="col">{{ 'products.fit' | t }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%- for p in frames.products -%}
+          {%- assign m = p.metafields.carfo -%}
+          <tr>
+            <th scope="row"><a href="{{ p.url }}">{{ p.title }}</a></th>
+            <td>{% if m.frame_width_mm != blank %}{{ m.frame_width_mm.value }} mm{% else %}–{% endif %}</td>
+            <td>{% if m.lens_width_mm != blank %}{{ m.lens_width_mm.value }} mm{% else %}–{% endif %}</td>
+            <td>{% if m.bridge_mm != blank %}{{ m.bridge_mm.value }} mm{% else %}–{% endif %}</td>
+            <td>{% if m.temple_mm != blank %}{{ m.temple_mm.value }} mm{% else %}–{% endif %}</td>
+            <td>{% if m.fit != blank %}{% render 'fit-label', fit: m.fit.value %}{% else %}–{% endif %}</td>
+          </tr>
+        {%- endfor -%}
+      </tbody>
+    </table>
+  </div>
+  {%- if section.settings.note != blank -%}<p class="sizes__note">{% render 'icon', name: 'return' %} {{ section.settings.note }}</p>{%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Size table",
+  "tag": "div",
+  "class": "section-sizes",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Maten van alle tien" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Houd je favoriete zonnebril tegen een liniaal, van scharnier tot scharnier. Vergelijk die breedte met de tabel.</p>" },
+    { "type": "text", "id": "note", "label": "Note", "default": "Past hij toch niet? Retourneren is 30 dagen gratis." }
+  ],
+  "presets": [{ "name": "Size table" }]
+}
+{% endschema %}

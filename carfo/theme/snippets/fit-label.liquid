@@ -1,0 +1,13 @@
+{%- liquid
+  assign f = fit | downcase
+  case f
+    when 'narrow'
+      echo 'products.fit_narrow' | t
+    when 'medium'
+      echo 'products.fit_medium' | t
+    when 'wide'
+      echo 'products.fit_wide' | t
+    else
+      echo fit
+  endcase
+-%}

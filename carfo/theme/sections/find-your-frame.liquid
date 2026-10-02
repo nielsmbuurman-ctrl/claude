@@ -1,0 +1,152 @@
+{%- liquid
+  assign frames = settings.frames_collection | default: collections.all
+  assign pair_cents = settings.extra_pair_price | times: 100 | round
+  assign s = section.settings
+-%}
+<frame-quiz class="quiz page-width page-width--narrow" data-extra="{{ pair_cents }}">
+  <div class="quiz__intro">
+    <h1 class="h1">{{ s.heading }}</h1>
+    {%- if s.text != blank -%}<p class="section-head__text">{{ s.text }}</p>{%- endif -%}
+  </div>
+
+  <form class="quiz__form" data-quiz-form>
+    <fieldset class="quiz__q" data-step="1">
+      <legend class="quiz__legend"><span class="label">1 / 3</span> {{ s.q1 }}</legend>
+      <div class="quiz__options">
+        {%- assign use_opts = 'city,festival,beach,driving' | split: ',' -%}
+        {%- for opt in use_opts -%}
+          {%- liquid
+            case opt
+              when 'city'
+                assign label = s.q1_city
+              when 'festival'
+                assign label = s.q1_festival
+              when 'beach'
+                assign label = s.q1_beach
+              when 'driving'
+                assign label = s.q1_driving
+            endcase
+          -%}
+          <label class="option"><input type="radio" name="use" value="{{ opt }}" required><span>{{ label }}</span></label>
+        {%- endfor -%}
+      </div>
+    </fieldset>
+
+    <fieldset class="quiz__q" data-step="2">
+      <legend class="quiz__legend"><span class="label">2 / 3</span> {{ s.q2 }}</legend>
+      {%- if s.q2_help != blank -%}<p class="quiz__help">{{ s.q2_help }}</p>{%- endif -%}
+      <div class="quiz__options">
+        {%- assign fit_opts = 'narrow,medium,wide,unsure' | split: ',' -%}
+        {%- for opt in fit_opts -%}
+          {%- liquid
+            case opt
+              when 'narrow'
+                assign label = s.q2_narrow
+              when 'medium'
+                assign label = s.q2_medium
+              when 'wide'
+                assign label = s.q2_wide
+              when 'unsure'
+                assign label = s.q2_unsure
+            endcase
+          -%}
+          <label class="option"><input type="radio" name="fit" value="{{ opt }}" required><span>{{ label }}</span></label>
+        {%- endfor -%}
+      </div>
+    </fieldset>
+
+    <fieldset class="quiz__q" data-step="3">
+      <legend class="quiz__legend"><span class="label">3 / 3</span> {{ s.q3 }}</legend>
+      <div class="quiz__options">
+        {%- assign style_opts = 'clean,loud,y2k,surprise' | split: ',' -%}
+        {%- for opt in style_opts -%}
+          {%- liquid
+            case opt
+              when 'clean'
+                assign label = s.q3_clean
+              when 'loud'
+                assign label = s.q3_loud
+              when 'y2k'
+                assign label = s.q3_y2k
+              when 'surprise'
+                assign label = s.q3_surprise
+            endcase
+          -%}
+          <label class="option"><input type="radio" name="style" value="{{ opt }}" required><span>{{ label }}</span></label>
+        {%- endfor -%}
+      </div>
+    </fieldset>
+  </form>
+
+  <div class="quiz__result" data-result hidden tabindex="-1">
+    <h2 class="h2" data-result-title></h2>
+    <ul class="quiz__picks" role="list" data-result-list></ul>
+    <div class="quiz__actions">
+      <button type="button" class="btn" data-add-both></button>
+      <button type="button" class="text-link" data-restart>{{ 'quiz.restart' | t }}</button>
+    </div>
+  </div>
+
+  <script type="application/json" data-frames>
+    [
+      {%- for p in frames.products -%}
+        {%- assign m = p.metafields.carfo -%}
+        {
+          "variant": {{ p.selected_or_first_available_variant.id | json }},
+          "available": {{ p.available | json }},
+          "title": {{ p.title | json }},
+          "url": {{ p.url | json }},
+          "price": {{ p.price | json }},
+          "image": {% if p.featured_media %}{{ p.featured_media | image_url: width: 600 | json }}{% else %}null{% endif %},
+          "colourway": {{ m.colourway.value | default: '' | json }},
+          "fit": {{ m.fit.value | default: '' | downcase | json }},
+          "style": {{ m.style.value | default: '' | downcase | json }},
+          "wear": {{ m.wear_to.value | default: '' | json }},
+          "category": {{ m.filter_category.value | default: 0 | json }},
+          "tint": {{ m.tint_hex.value | default: '#2B2B30' | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  </script>
+  <script type="application/json" data-quiz-strings>
+    {
+      "title": {{ s.result_title | json }},
+      "addBoth": {{ s.add_both | json }}
+    }
+  </script>
+</frame-quiz>
+
+{% schema %}
+{
+  "name": "Find your frame",
+  "tag": "div",
+  "class": "section-quiz",
+  "settings": [
+    { "type": "paragraph", "content": "Scores the frames on their wear_to, fit and style metafields and always suggests two." },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Welke bril is van jou?" },
+    { "type": "text", "id": "text", "label": "Text", "default": "Drie vragen. Twintig seconden. Twee matches." },
+    { "type": "header", "content": "Question 1" },
+    { "type": "text", "id": "q1", "label": "Question", "default": "Wat is het plan?" },
+    { "type": "text", "id": "q1_city", "label": "City", "default": "Stadsdagen" },
+    { "type": "text", "id": "q1_festival", "label": "Festival", "default": "Festival" },
+    { "type": "text", "id": "q1_beach", "label": "Beach", "default": "Strand & water" },
+    { "type": "text", "id": "q1_driving", "label": "Driving", "default": "Autorijden" },
+    { "type": "header", "content": "Question 2" },
+    { "type": "text", "id": "q2", "label": "Question", "default": "Je gezicht, ongeveer?" },
+    { "type": "text", "id": "q2_help", "label": "Help text", "default": "Je huidige zonnebril zit… strak (smal), precies goed (medium) of los (breed)." },
+    { "type": "text", "id": "q2_narrow", "label": "Narrow", "default": "Smal" },
+    { "type": "text", "id": "q2_medium", "label": "Medium", "default": "Medium" },
+    { "type": "text", "id": "q2_wide", "label": "Wide", "default": "Breed" },
+    { "type": "text", "id": "q2_unsure", "label": "Not sure", "default": "Weet ik niet" },
+    { "type": "header", "content": "Question 3" },
+    { "type": "text", "id": "q3", "label": "Question", "default": "Jouw stijl?" },
+    { "type": "text", "id": "q3_clean", "label": "Clean", "default": "Clean & klassiek" },
+    { "type": "text", "id": "q3_loud", "label": "Loud", "default": "Uitgesproken & getint" },
+    { "type": "text", "id": "q3_y2k", "label": "Y2K", "default": "Y2K" },
+    { "type": "text", "id": "q3_surprise", "label": "Surprise", "default": "Verras me" },
+    { "type": "header", "content": "Result" },
+    { "type": "text", "id": "result_title", "label": "Result heading", "default": "Jouw twee: [a] + [b].", "info": "[a] and [b] become the frame names." },
+    { "type": "text", "id": "add_both", "label": "Button", "default": "Allebei in mijn tas · [price]", "info": "[price] becomes the price of two." }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,149 @@
+{
+  "accessibility": {
+    "skip_to_content": "Skip to content"
+  },
+  "general": {
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No",
+    "page": "Page {{ page }}",
+    "pagination": "Pagination",
+    "design_mode_ugc": "Add photos as blocks. This section stays hidden until it has a photo."
+  },
+  "header": {
+    "menu": "Menu",
+    "search": "Search",
+    "account": "Account",
+    "bag": "Bag"
+  },
+  "footer": {
+    "kvk": "Chamber of Commerce",
+    "vat": "VAT",
+    "language": "Language"
+  },
+  "filters": {
+    "label": "Filter by shape",
+    "all": "All",
+    "slim": "Slim",
+    "bold": "Bold",
+    "tinted": "Tinted",
+    "clear": "Clear"
+  },
+  "products": {
+    "add_with_price": "Add to bag · {{ price }}",
+    "pick_more": "Pick {{ count }} more frames",
+    "pick_second": "Pick your second pair",
+    "pick_extra": "Pick {{ count }} extra pairs",
+    "choose_set": "Choose 1, 2 or 3 pairs",
+    "every_extra": "every extra pair {{ price }}",
+    "extra_short": "+ {{ price }}",
+    "quick_add": "Add {{ title }} to bag",
+    "sold_out": "Sold out",
+    "placeholder_title": "Frame",
+    "photos_soon": "Photos coming soon",
+    "fit": "Fit",
+    "fit_narrow": "Narrow",
+    "fit_medium": "Medium",
+    "fit_wide": "Wide",
+    "category_short": "Cat. {{ category }}",
+    "polarized": "Polarized",
+    "details": "Details & fit",
+    "frame_width": "Frame width",
+    "lens_width": "Lens width",
+    "bridge": "Bridge",
+    "temple": "Temple length",
+    "material": "Material",
+    "weight": "Weight",
+    "size_guide": "Compare all sizes",
+    "lens": "Lens",
+    "filter_category": "Filter category",
+    "category_4_warning": "Filter category 4: not suitable for driving.",
+    "in_the_box": "In the box",
+    "shipping_returns": "Shipping & returns",
+    "care": "Care",
+    "safety": "Product safety",
+    "free_returns": "30-day free returns",
+    "pick_one_more": "Pick 1 more frame"
+  },
+  "sets": {
+    "pairs": {
+      "one": "{{ count }} pair",
+      "other": "{{ count }} pairs"
+    },
+    "per_pair": "{{ price }} a pair",
+    "free_shipping": "Free shipping",
+    "free_gift": "free cord",
+    "free_gift_short": "cord",
+    "shipping_price": "Shipping {{ price }}",
+    "size_label": "How many pairs?",
+    "choose": "Pick",
+    "picked": "{{ picked }} of {{ total }} picked",
+    "add": "Add set to bag",
+    "remove": "Remove this frame from your set"
+  },
+  "cart": {
+    "title": "Your bag",
+    "empty": "Your bag is empty.",
+    "shop_all": "Shop all 10",
+    "progress_one": "Add a second pair for {{ price }} and shipping is free.",
+    "progress_two": "Free shipping unlocked. A third pair is {{ price }} too, plus a free cord.",
+    "progress_three": "Free shipping and a free cord unlocked. Every extra pair stays {{ price }}.",
+    "add_gift": "Add your free {{ title }}",
+    "no_set_discount": "Editor only: there are 2+ frames in the bag but no set discount was applied. Check your discount app.",
+    "suggest": "Most picked as a second pair",
+    "add": "Add",
+    "quantity": "Quantity",
+    "decrease": "One fewer {{ title }}",
+    "increase": "One more {{ title }}",
+    "remove": "Remove",
+    "you_save": "You save",
+    "shipping": "Shipping",
+    "free": "Free",
+    "checkout": "Checkout · {{ price }}",
+    "add_error": "That didn't work. Please try again."
+  },
+  "collections": {
+    "all_title": "Collections",
+    "empty": "No frames here yet.",
+    "set_pill": "Build your set · 2 for {{ price }}"
+  },
+  "loupe": {
+    "hint": "Move across the photo",
+    "choose": "Choose a lens",
+    "fallback_scene": "Summer scene"
+  },
+  "quiz": {
+    "restart": "Start again"
+  },
+  "sizes": {
+    "frame": "Frame"
+  },
+  "newsletter": {
+    "email": "Email address",
+    "no_spam": "Unsubscribe any time."
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Search for a frame",
+    "submit": "Search",
+    "results": {
+      "one": "{{ count }} result for “{{ terms }}”",
+      "other": "{{ count }} results for “{{ terms }}”"
+    }
+  },
+  "notfound": {
+    "title": "This page doesn't exist.",
+    "text": "The frames do."
+  },
+  "password": {
+    "enter": "Enter with password",
+    "password": "Password",
+    "submit": "Enter"
+  },
+  "gift_card": {
+    "title": "Your gift card",
+    "code": "Code",
+    "expired": "This gift card has expired or is disabled.",
+    "shop": "Go to the shop"
+  }
+}

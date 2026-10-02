@@ -1,0 +1,44 @@
+<section class="features page-width">
+  {%- if section.settings.heading != blank -%}<h2 class="h2 features__heading">{{ section.settings.heading }}</h2>{%- endif -%}
+  <ul class="features__list" role="list">
+    {%- for block in section.blocks -%}
+      <li class="feature" {{ block.shopify_attributes }}>
+        <h3 class="feature__title">{{ block.settings.title }}</h3>
+        <p class="feature__text">{{ block.settings.text }}</p>
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+
+{% schema %}
+{
+  "name": "Features",
+  "tag": "div",
+  "class": "section-features",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Kleine prijs. Geen shortcuts." }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "UV400-glazen." },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Houden UVA en UVB tegen." }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Features",
+      "blocks": [
+        { "type": "feature", "settings": { "title": "UV400-glazen.", "text": "Houden UVA en UVB tegen. CE-gemarkeerd, de categorie staat op elke productpagina." } },
+        { "type": "feature", "settings": { "title": "Gemeten in millimeters.", "text": "Elke bril vermeldt zijn breedte, zodat je weet dat hij past voordat hij er is." } },
+        { "type": "feature", "settings": { "title": "Hard etui, bij elke bril.", "text": "Geen zakje. Een etui." } },
+        { "type": "feature", "settings": { "title": "Gratis retourneren.", "text": "Twijfel? Stuur hem terug. Het label is van ons." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

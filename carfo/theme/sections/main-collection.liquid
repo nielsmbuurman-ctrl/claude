@@ -1,0 +1,49 @@
+{%- liquid
+  assign grid_id = 'Grid-' | append: section.id
+  assign pair_price = ''
+  capture pair_price
+    render 'set-price', pairs: 2
+  endcapture
+-%}
+<section class="collection page-width">
+  <div class="section-head section-head--page">
+    <div>
+      <h1 class="h1">{{ collection.title }}</h1>
+      {%- if collection.description != blank -%}
+        <div class="section-head__text rte">{{ collection.description }}</div>
+      {%- elsif section.settings.text != blank -%}
+        <p class="section-head__text">{{ section.settings.text }}</p>
+      {%- endif -%}
+    </div>
+    {% render 'filter-chips', products: collection.products, grid: grid_id %}
+  </div>
+
+  {%- paginate collection.products by 24 -%}
+    <ul class="grid" id="{{ grid_id }}" role="list">
+      {%- for p in collection.products -%}
+        <li class="grid__item">{% render 'product-card', product: p %}</li>
+      {%- else -%}
+        <li class="grid__empty">{{ 'collections.empty' | t }}</li>
+      {%- endfor -%}
+    </ul>
+    {%- if paginate.pages > 1 -%}
+      <nav class="pagination" aria-label="{{ 'general.pagination' | t }}">{{ paginate | default_pagination }}</nav>
+    {%- endif -%}
+  {%- endpaginate -%}
+
+  {%- if section.settings.set_link != blank -%}
+    <a class="set-pill" href="{{ section.settings.set_link }}">{{ 'collections.set_pill' | t: price: pair_price }}</a>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Collection",
+  "tag": "div",
+  "class": "section-main-collection",
+  "settings": [
+    { "type": "text", "id": "text", "label": "Text when the collection has no description", "default": "€19,95 per bril. Elke extra bril €15." },
+    { "type": "url", "id": "set_link", "label": "Build-your-set page", "info": "Shows a sticky link on mobile." }
+  ]
+}
+{% endschema %}

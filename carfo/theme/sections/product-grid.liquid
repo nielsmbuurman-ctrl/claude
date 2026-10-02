@@ -1,0 +1,92 @@
+{%- liquid
+  assign frames = section.settings.collection | default: settings.frames_collection | default: collections.all
+  assign grid_id = 'Grid-' | append: section.id
+  assign editorial_after = section.settings.editorial_position | minus: 1
+  assign shown = 0
+  assign add_label = ''
+  if section.settings.add_label == 'extra'
+    # "+ €15" is only true once the bag already holds a frame; otherwise the first frame costs the full price.
+    assign frames_in_bag = 0
+    for item in cart.items
+      if item.product.type == settings.frame_type
+        assign frames_in_bag = frames_in_bag | plus: item.quantity
+      endif
+    endfor
+    if frames_in_bag > 0
+      assign extra_money = settings.extra_pair_price | times: 100 | round | money_without_trailing_zeros
+      assign add_label = 'products.extra_short' | t: price: extra_money
+    endif
+  endif
+-%}
+<section class="grid-section page-width">
+  <div class="section-head">
+    <div>
+      {%- if section.settings.heading != blank -%}<h2 class="h2">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<p class="section-head__text">{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+    {%- if section.settings.show_filters -%}
+      {% render 'filter-chips', products: frames.products, grid: grid_id %}
+    {%- endif -%}
+  </div>
+
+  <ul class="grid" id="{{ grid_id }}" role="list">
+    {%- for p in frames.products -%}
+      {%- if section.settings.exclude_current and product and p.id == product.id -%}
+        {%- continue -%}
+      {%- endif -%}
+      {%- if shown >= section.settings.limit -%}
+        {%- break -%}
+      {%- endif -%}
+      {%- assign shown = shown | plus: 1 -%}
+      <li class="grid__item">{% render 'product-card', product: p, add_label: add_label %}</li>
+      {%- if section.settings.editorial_image != blank and forloop.index0 == editorial_after -%}
+        <li class="grid__item grid__item--editorial" aria-hidden="true">
+          {{ section.settings.editorial_image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '480, 720, 960, 1200', sizes: '(min-width: 990px) 25vw, 50vw', class: 'editorial__img', alt: '' }}
+          {%- if section.settings.editorial_caption != blank -%}<p class="editorial__caption label">{{ section.settings.editorial_caption }}</p>{%- endif -%}
+        </li>
+      {%- endif -%}
+    {%- else -%}
+      {%- for i in (1..4) -%}
+        <li class="grid__item">
+          <article class="card">
+            <div class="card__media">{% render 'frame-sketch', label: 'Frame' %}</div>
+            <div class="card__info"><div class="card__text"><h3 class="card__title">{{ 'products.placeholder_title' | t }}</h3><p class="card__price">{{ settings.single_price | times: 100 | round | money }}</p></div></div>
+          </article>
+        </li>
+      {%- endfor -%}
+    {%- endfor -%}
+  </ul>
+
+  {%- if section.settings.button_label != blank -%}
+    <div class="section-foot"><a class="btn btn--outline" href="{{ frames.url }}">{{ section.settings.button_label }}</a></div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Frames grid",
+  "tag": "div",
+  "class": "section-grid",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Alle tien. Eén pagina." },
+    { "type": "text", "id": "text", "label": "Text", "default": "Kies de ene. Pak de volgende voor €15." },
+    { "type": "collection", "id": "collection", "label": "Collection", "info": "Empty = the frames collection from Theme settings" },
+    { "type": "range", "id": "limit", "label": "Number of frames", "min": 2, "max": 12, "step": 1, "default": 10 },
+    { "type": "checkbox", "id": "show_filters", "label": "Show shape filters", "default": true },
+    { "type": "checkbox", "id": "exclude_current", "label": "Hide the product being viewed", "default": false, "info": "For product pages." },
+    {
+      "type": "select",
+      "id": "add_label",
+      "label": "Quick-add button",
+      "options": [{ "value": "plus", "label": "Plus icon" }, { "value": "extra", "label": "Extra-pair price (+ €15)" }],
+      "default": "plus"
+    },
+    { "type": "text", "id": "button_label", "label": "Button below the grid" },
+    { "type": "header", "content": "Editorial tile" },
+    { "type": "image_picker", "id": "editorial_image", "label": "Image", "info": "A campaign photo between the frames. Portrait." },
+    { "type": "range", "id": "editorial_position", "label": "Show after frame", "min": 1, "max": 9, "step": 1, "default": 4 },
+    { "type": "text", "id": "editorial_caption", "label": "Caption" }
+  ],
+  "presets": [{ "name": "Frames grid" }]
+}
+{% endschema %}

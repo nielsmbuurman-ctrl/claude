@@ -1,0 +1,29 @@
+{
+  "sections": {
+    "main": {
+      "type": "crew-page",
+      "settings": {
+        "eyebrow": "Join the crew",
+        "heading": "Draag 'm. Deel 'm. Verdien eraan.",
+        "text": "Gratis aanmelden. Geen minimum aantal volgers.",
+        "button_label": "Meld je aan",
+        "button_link": "",
+        "steps_heading": "Zo werkt het"
+      },
+      "blocks": {
+        "perk-1": { "type": "perk", "settings": { "big": "10%", "text": "commissie op elke bestelling met jouw code." } },
+        "perk-2": { "type": "perk", "settings": { "big": "10%", "text": "korting voor je volgers met je eigen code en link." } },
+        "perk-3": { "type": "perk", "settings": { "big": "30%", "text": "korting op je eigen brillen." } },
+        "perk-4": { "type": "perk", "settings": { "big": "Elke maand", "text": "prijzen voor de beste verkopers, en als eerste nieuwe brillen zien." } },
+        "step-1": { "type": "step", "settings": { "text": "Meld je aan in 5 minuten." } },
+        "step-2": { "type": "step", "settings": { "text": "Krijg je eigen code en link." } },
+        "step-3": { "type": "step", "settings": { "text": "Verdien op elke bestelling." } },
+        "q-1": { "type": "question", "settings": { "question": "Wanneer word ik betaald?", "answer": "<p>Commissie wordt uitbetaald zodra de retourtermijn van 30 dagen voorbij is.</p>" } },
+        "q-2": { "type": "question", "settings": { "question": "Hoeveel volgers heb ik nodig?", "answer": "<p>Geen minimum. Iedereen die Carfo draagt en deelt, kan meedoen.</p>" } },
+        "q-3": { "type": "question", "settings": { "question": "Moet ik zeggen dat het een samenwerking is?", "answer": "<p>Ja. Zet #ad of #samenwerking bij je posts, zoals de Reclamecode Social Media vraagt.</p>" } }
+      },
+      "block_order": ["perk-1", "perk-2", "perk-3", "perk-4", "step-1", "step-2", "step-3", "q-1", "q-2", "q-3"]
+    }
+  },
+  "order": ["main"]
+}

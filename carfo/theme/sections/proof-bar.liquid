@@ -1,0 +1,53 @@
+<section class="proof">
+  <ul class="proof__list page-width" role="list">
+    {%- for block in section.blocks -%}
+      <li class="proof__item" {{ block.shopify_attributes }}>
+        {% render 'icon', name: block.settings.icon %}
+        <span>{{ block.settings.text }}</span>
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+
+{% schema %}
+{
+  "name": "Proof bar",
+  "tag": "div",
+  "class": "section-proof",
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "uv", "label": "Sun" },
+            { "value": "case", "label": "Case" },
+            { "value": "truck", "label": "Delivery" },
+            { "value": "return", "label": "Return" },
+            { "value": "ruler", "label": "Ruler" },
+            { "value": "check", "label": "Check" }
+          ],
+          "default": "check"
+        },
+        { "type": "text", "id": "text", "label": "Text", "default": "30 dagen gratis retourneren" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Proof bar",
+      "blocks": [
+        { "type": "item", "settings": { "icon": "uv", "text": "UV400 · CE-gemarkeerd" } },
+        { "type": "item", "settings": { "icon": "case", "text": "Hard etui in elke doos" } },
+        { "type": "item", "settings": { "icon": "truck", "text": "Gratis verzending vanaf 2 brillen" } },
+        { "type": "item", "settings": { "icon": "return", "text": "30 dagen gratis retourneren" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

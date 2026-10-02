@@ -1,0 +1,35 @@
+{%- comment -%}
+  A frame's main image, or the drawn frame in its own tint when there is no photo yet.
+  Usage: render 'frame-media', product: product, width: 900, sizes: '50vw', hover: true
+{%- endcomment -%}
+{%- liquid
+  assign w = width | default: 900
+  assign img_sizes = sizes | default: '(min-width: 990px) 25vw, 50vw'
+  assign m = product.metafields.carfo
+-%}
+{%- if product.featured_media -%}
+  {{
+    product.featured_media
+    | image_url: width: w
+    | image_tag:
+      loading: 'lazy',
+      widths: '240, 360, 540, 720, 900',
+      sizes: img_sizes,
+      class: 'frame-media__img',
+      alt: product.featured_media.alt
+  }}
+  {%- if hover and product.media.size > 1 -%}
+    {{
+      product.media[1]
+      | image_url: width: w
+      | image_tag:
+        loading: 'lazy',
+        widths: '240, 360, 540, 720, 900',
+        sizes: img_sizes,
+        class: 'frame-media__img frame-media__img--hover',
+        alt: ''
+    }}
+  {%- endif -%}
+{%- else -%}
+  {% render 'frame-sketch', tint: m.tint_hex.value, alpha: m.tint_alpha.value, label: product.title %}
+{%- endif -%}

@@ -1,0 +1,15 @@
+{%- assign frames = settings.frames_collection | default: collections.all -%}
+<section class="notfound page-width page-width--narrow">
+  <p class="label">404</p>
+  <h1 class="h1">{{ 'notfound.title' | t }}</h1>
+  <p>{{ 'notfound.text' | t }}</p>
+  <a class="btn" href="{{ frames.url }}">{{ 'cart.shop_all' | t }}</a>
+</section>
+
+{% schema %}
+{
+  "name": "404",
+  "tag": "div",
+  "settings": []
+}
+{% endschema %}

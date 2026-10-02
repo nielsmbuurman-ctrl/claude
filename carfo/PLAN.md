@@ -15,7 +15,8 @@ buying one feels like a mistake. Let creators carry the traffic.
 | Platform | **Shopify, with our own custom theme** |
 | Launch | **All 10 frames at once** |
 | Returns | **Free returns, 30 days.** No separate exchange flow: to swap, return it free and order the one you want. |
-| Products | Details and photos still to come (what I need: section 4) |
+| Frame names | **Ambra, Bruma, Calma, Fiera, Lua, Marea, Nimbo, Pilar, Sombra, Zefi** (section 4) |
+| Products | Photos and measurements still to come (what I need: section 4) |
 
 > **Research note.** freshsupps.com and mellerbrand.com are both blocked by this
 > environment's network policy, so I could not load the pages or screenshot them.
@@ -196,22 +197,57 @@ All ten launch at once, so the mix has to work from day one.
 **Balance check:** at least 3 that suit wide faces, at least 3 that suit narrow
 faces, at least 2 clear or light frames, no more than 2 wraps or shields.
 
-When you send the products, I'll sort them into these roles and pick the two
-heroes.
+### The Carfo ten
 
-### Naming
+**How the names work.** Each frame gets a short, warm-sounding name from Spanish,
+Italian or Portuguese that carries the meaning of its supplier name. So the name
+still fits once the details are confirmed. Every name starts with a different
+letter (A, B, C, F, L, M, N, P, S, Z), so comments ("Fiera or Sombra?"), SKUs
+and the size table never mix two frames up. None of them matches a Meller or
+pep-schep model name I came across.
 
-`MODEL, Frame / Lens`, e.g. **Marea, Clear / Ice Blue**. One invented name per
-frame and one line of character: *"The fresh one. Goes with everything."*
-If the frames don't have names yet, I can propose a set of ten that fit Carfo.
+Format on the site: `Name, Frame / Lens`.
 
-### What I need for each frame
+| # | Carfo name | Means | Supplier model | Frame / Lens | Confirmed so far | One-liner | Role |
+|---|---|---|---|---|---|---|---|
+| 1 | **Ambra** | amber (It.) | Peridot | Black / Orange | Black frame, orange lenses, €19.95 | *Black frame, orange lens. Golden hour, all day.* | **Hero** |
+| 2 | **Bruma** | sea mist (Sp., Pt.) | Mithralis | Smoke Grey / [lens] | Cool-grey half-transparent frame, square, angular lenses, "minimal with character" | *Half-clear grey, sharp corners. Quiet, with an edge.* | Everyday core |
+| 3 | **Calma** | calm | Cristal Gris | [Crystal / Grey] | Nothing yet; colours guessed from the old name | after photos | after photos |
+| 4 | **Fiera** | fierce (It.); Dutch "fier" = proud | Telesto | Black / Black | Black frame, black lenses, a full-design statement frame | *All black, all in. The one that gets noticed.* | Statement |
+| 5 | **Lua** | moon (Pt.) | Lunares | ? | Nothing yet | after photos | after photos |
+| 6 | **Marea** | tide (Sp., It.) | Calora | Clear / Ice Blue | Clear soft-square frame, ice-blue gradient lens (seen in the images in this repo) | *Clear frame, ice-blue fade. The fresh one. Goes with everything.* | **Hero** |
+| 7 | **Nimbo** | rain cloud (Sp., It.) | Cloudshock | ? | Nothing yet | after photos | after photos |
+| 8 | **Pilar** | pillar; also a Spanish first name | Atlas | [Black / Dark] | Solid, no bright colours, robust, comfortable all day; sold as "the foundation of your look" | *No fuss, no colour. The pair everything else stands on.* | Everyday core |
+| 9 | **Sombra** | shade (Sp.) | El Silencio | Black / Black | Black frame, black lenses, €19.95 | *Black on black. Says nothing, says enough.* | Everyday core |
+| 10 | **Zefi** | from *zefiro*, a soft west wind | Vent Doux ("soft wind") | ? | Nothing yet | after photos | after photos |
 
-Send it in any form (a spreadsheet, a list, photos with notes).
+`[brackets]` = my guess, still to confirm. "Confirmed so far" comes from search
+snippets of the pep-schep.nl product pages (the site itself is blocked here), and
+from the images in this repo for Marea.
+
+**Why these two heroes.** Marea is the light, clean frame that suits most faces,
+and it already has strong images. Ambra is the loudest colour in the range, it
+reads instantly in a 2-second ad, and its orange lens carries Koningsdag
+(27 April). Both are provisional until I see Ambra's shape.
+
+**Balance flags to check with photos:**
+- **Three black frames** (Fiera, Sombra, probably Pilar). Fine for the core, but
+  only if their shapes clearly differ. If two look alike, one moves to a
+  different colourway or role.
+- **Two grey see-through frames** (Bruma and probably Calma). Same check.
+- **Only one confirmed clear/light frame** (Marea). The balance check wants two;
+  Bruma may count.
+
+**Before printing names on cases:** search each name together with "sunglasses"
+and "eyewear" to make sure no big brand uses it for a model.
+
+### What I still need
+
+**Photos of all ten** (phone photos are fine), first of all **Calma, Lua, Nimbo
+and Zefi**, which I haven't seen in any form. Then, per frame:
 
 | Field | Example | Used for |
 |---|---|---|
-| Name (or "name it for me") | Marea | Everywhere |
 | Frame colour / lens colour | Clear / Ice Blue | Title, filters |
 | Photos (whatever you have now) | Front, side, on a face | Gallery; I'll write the reshoot list from these |
 | **Frame width (mm)** | 140 | Fit chip, size table |
@@ -401,7 +437,7 @@ Bottom row: KvK and VAT number, payment icons (iDEAL first), socials, NL/EN swit
 2. **Marea** · `Clear / Ice Blue`
 3. `€19.95` · `every extra pair €15`
 4. Stars + count, **only when real**.
-5. One-liner: *A clear frame with ice-blue lenses. The fresh one. Goes with everything.*
+5. One-liner: *Clear frame, ice-blue fade. The fresh one. Goes with everything.*
 6. Chips: `Medium fit · 140 mm` `UV400 · Cat. 3`
 7. **Bundle selector** (radio cards; The Pair selected by default, A/B tested in section 13):
    - ○ **1 pair**, €19.95
@@ -473,7 +509,7 @@ mix of Carfo frames. It does not stack with other codes, except affiliate codes
   no re-entering details):
 
   > **Wait, one more?**
-  > Add [Marea] for **€15**. Same box, no extra shipping.
+  > Add [Ambra] for **€15**. Same box, no extra shipping.
   > `[Add to my order]`  `No thanks`
 
 - **Thank-you page:** order summary, delivery estimate, `Follow @carfo`, and a
@@ -491,7 +527,7 @@ mix of Carfo frames. It does not stack with other codes, except affiliate codes
 
 **Result:**
 
-> **Your two: [Marea] + [Vela].**
+> **Your two: [Marea] + [Pilar].**
 > Get both for €34.95.
 > `[Add both to bag]`   `Email me my matches`
 
@@ -849,7 +885,7 @@ learn now, and push hard in spring.
 
 | When | What |
 |---|---|
-| **Oct, week 1** | You send the 10 products. I sort roles, write names and product copy, fill the metafield list. Trademark and domain checks. |
+| **Oct, week 1** | Names done. You send photos and measurements. I confirm roles, write product copy, fill the metafield list. Trademark and domain checks. |
 | **Oct, weeks 2–4** | Theme build: home, product, collection, cart drawer, set builder. Photography (section 8). CE paperwork from the supplier. |
 | **Nov, weeks 1–2** | Quiz, size table, crew page, legal pages. Apps set up (discount, reviews, email, returns). Full checkout and return tests. Waitlist page live. |
 | **Mid-Nov** | **Soft launch** to the waitlist and friends. Seed the first 30 creators. |
@@ -869,8 +905,12 @@ learn now, and push hard in spring.
    sense later, if you want a custom discount Function.
 3. **Domain:** carfo.nl, carfo.com, or both? (I can check availability.)
 4. **Affiliate rates:** 10% / 10% to start?
-5. **Frame names:** keep the supplier's names, or should I name all ten?
-6. **Any polarized frames?** If so, they can sit at a higher price.
+5. **Any polarized frames?** If so, they can sit at a higher price.
+6. **Same frames on pep-schep.nl.** The supplier models are sold there at the
+   same €19.95, with free shipping on a single pair. Shoppers can find that with
+   a reverse image search. Carfo wins on look, sets and free returns; pep-schep
+   wins on a single pair. Is that fine, or should a single pair ship free on
+   Carfo too? Either way: never reuse pep-schep's product photos or text on Carfo.
 
 ---
 
@@ -896,6 +936,17 @@ learn now, and push hard in spring.
 | Wait, one more? | Wacht, nog eentje? |
 | First dibs on new frames. | Als eerste bij nieuwe brillen. |
 | Wear it. Share it. Get paid. | Draag 'm. Deel 'm. Verdien eraan. |
+
+**Frame one-liners**
+
+| Frame | Nederlands |
+|---|---|
+| Ambra | Zwart montuur, oranje glas. De hele dag golden hour. |
+| Bruma | Half doorzichtig grijs, scherpe hoeken. Rustig, met een randje. |
+| Fiera | Helemaal zwart, helemaal aanwezig. Deze valt op. |
+| Marea | Helder montuur, ijsblauw verloop. De frisse. Past bij alles. |
+| Pilar | Geen gedoe, geen kleur. De bril waar de rest op bouwt. |
+| Sombra | Zwart op zwart. Zegt niks, zegt genoeg. |
 
 ---
 

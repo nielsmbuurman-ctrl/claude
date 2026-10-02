@@ -2,6 +2,9 @@
   assign s = section.settings
   assign frames = settings.frames_collection | default: collections.all
   assign featured = s.product
+  if featured == blank
+    assign featured = all_products[s.product_handle]
+  endif
   assign link = s.button_link
   if link == blank and featured != blank
     assign link = featured.url
@@ -37,6 +40,8 @@
 <section id="BrandHero-{{ section.id }}" class="bh">
   {%- if s.background != blank -%}
     {{ s.background | image_url: width: 2400 | image_tag: loading: 'eager', widths: '800, 1200, 1600, 2400', sizes: '100vw', class: 'bh__bg', alt: '' }}
+  {%- else -%}
+    <img class="bh__bg" src="{{ 'carfo-brand-bg.webp' | asset_url }}" alt="" width="1672" height="940" loading="eager">
   {%- endif -%}
 
   <div class="bh__inner page-width">
@@ -48,6 +53,8 @@
       <div class="bh__mascot{% if s.mascot_blend %} bh__mascot--blend{% endif %}">
         {%- if s.mascot != blank -%}
           {{ s.mascot | image_url: width: 1000 | image_tag: loading: 'eager', widths: '400, 600, 800, 1000', sizes: '(min-width: 990px) 28vw, 46vw', alt: s.mascot.alt }}
+        {%- else -%}
+          <img src="{{ 'carfo-mascot.webp' | asset_url }}" alt="" width="1122" height="1402" loading="eager">
         {%- endif -%}
         <span class="bh__star bh__star--1" aria-hidden="true">★</span>
         <span class="bh__star bh__star--2" aria-hidden="true">☆</span>
@@ -56,6 +63,8 @@
       <a class="bh__product{% if s.product_soften %} bh__product--soften{% endif %}" href="{{ link }}" tabindex="-1" aria-hidden="true">
         {%- if s.product_image != blank -%}
           {{ s.product_image | image_url: width: 1400 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '500, 800, 1100, 1400', sizes: '(min-width: 990px) 36vw, 50vw', alt: s.product_image.alt }}
+        {%- elsif s.use_theme_product_image -%}
+          <img src="{{ 'carfo-marea.webp' | asset_url }}" alt="{{ featured.title | default: 'Marea' | escape }}" width="1530" height="1800" loading="eager" fetchpriority="high">
         {%- elsif featured.featured_media -%}
           {{ featured.featured_media | image_url: width: 1400 | image_tag: loading: 'eager', widths: '500, 800, 1100, 1400', sizes: '(min-width: 990px) 36vw, 50vw', alt: featured.title }}
         {%- else -%}
@@ -114,13 +123,15 @@
   "class": "section-brand-hero",
   "settings": [
     { "type": "header", "content": "Images" },
-    { "type": "image_picker", "id": "background", "label": "Background", "info": "The peach doodle pattern, 16:9." },
+    { "type": "image_picker", "id": "background", "label": "Background", "info": "Empty = the built-in peach doodle pattern." },
     { "type": "color", "id": "bg_color", "label": "Background colour", "default": "#FCE3CC" },
-    { "type": "image_picker", "id": "mascot", "label": "Mascot", "info": "Best as a transparent PNG. A white background also works with the option below." },
+    { "type": "image_picker", "id": "mascot", "label": "Mascot", "info": "Empty = the built-in sun mascot. A transparent PNG works best." },
     { "type": "checkbox", "id": "mascot_blend", "label": "Hide the mascot's white background", "default": true, "info": "Blends white into the background colour. Turn off for a transparent PNG." },
     { "type": "image_picker", "id": "product_image", "label": "Product image", "info": "Transparent PNG of the frame works best. Empty = the product's first photo." },
     { "type": "checkbox", "id": "product_soften", "label": "Soften the product photo's edges", "default": true, "info": "Fades a photo's own background into the banner. Turn off for a transparent PNG." },
+    { "type": "checkbox", "id": "use_theme_product_image", "label": "Use the built-in Marea photo when no product image is picked", "default": true },
     { "type": "product", "id": "product", "label": "Product", "info": "Used for the button link and [price]." },
+    { "type": "text", "id": "product_handle", "label": "Product handle (if no product is picked)", "default": "marea" },
     { "type": "header", "content": "Text" },
     { "type": "textarea", "id": "sticker", "label": "Sticker", "default": "Maak kennis met Marea.\nJe nieuwe zomervriend." },
     { "type": "textarea", "id": "heading", "label": "Headline", "default": "Zon op.\nBril op." },

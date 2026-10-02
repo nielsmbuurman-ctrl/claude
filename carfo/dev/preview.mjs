@@ -232,14 +232,8 @@ async function renderSection(type, id, data, scope) {
     return { id: bid, type: b.type, settings: resolveSettings((blockSchemas[b.type] || {}).settings, { ...bd, ...b.settings }), shopify_attributes: '' };
   });
   const section = { id, settings: resolveSettings(schema.settings, { ...defaults, ...(data.settings || {}) }), blocks, shopify_attributes: '' };
-  // Preview-only images for the brand banner (on the real store they are picked in the theme editor).
-  if (type === 'brand-hero') {
-    const img = (src, alt = '') => ({ src, alt });
-    section.settings.background ||= img('/img/brand-bg.webp');
-    section.settings.mascot ||= img('/img/mascot.webp', 'Zon-mascotte met zonnebril');
-    section.settings.product_image ||= img('/img/marea-flat.webp', 'Marea, Clear / Ice Blue');
-    section.settings.product ||= frames.find((f) => f.handle === 'marea');
-  }
+  // The brand banner falls back to its built-in theme images and to all_products['marea'].
+
   // Shopify exposes global objects (settings, cart, shop…) inside rendered snippets; liquidjs needs them as globals.
   const html = await engine.parseAndRender(src, { ...scope, section }, { globals: scope });
   const cls = ['shopify-section', schema.class].filter(Boolean).join(' ');
@@ -272,6 +266,7 @@ function globals(req, extra = {}) {
     routes: { root_url: '/', cart_url: '/cart', cart_add_url: '/cart/add', cart_change_url: '/cart/change', search_url: '/search', account_url: '/account', all_products_collection_url: '/collections/all' },
     request: { design_mode: false, page_type: extra.page_type || 'index', locale: { iso_code: 'nl' }, origin: 'http://localhost' },
     localization: { available_languages: [{ iso_code: 'nl' }], language: { iso_code: 'nl' } },
+    all_products: Object.fromEntries(allProducts.map((p) => [p.handle, p])),
     collections: { all: { ...framesCollection, handle: 'all', url: '/collections/all', products: allProducts } },
     cart: buildCart(),
     canonical_url: 'http://localhost' + req.url,

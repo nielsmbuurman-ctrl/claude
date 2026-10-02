@@ -82,12 +82,10 @@ search, 404, blog, article, gift card.
 9. **Replace before launch:** the bracketed FAQ answer about delivery times, the
    safety text, the affiliate sign-up link on the crew page, and the delivery
    promise on the product page (leave it empty unless it is true).
-10. **Images:** the brand banner on the home page needs three images, picked in
-    *Customize → Brand banner*: the peach doodle background, the mascot (transparent
-    PNG is best; a white background is blended away automatically), and the frame
-    (a transparent PNG is best; a photo's own light background is faded into a
-    white glow). Pick the Marea product there too, so the button links to it and
-    shows its price. Also: the loupe scene (16:10),
+10. **Images:** the brand banner on the home page has its three images built in
+    (peach background, sun mascot, Marea photo) and links to the product with
+    handle `marea`. Swap any of them in *Customize → Brand banner*; transparent
+    PNGs look cleanest. Also: the loupe scene (16:10),
     the story image, an editorial tile for the grid, and six photos per frame
     (shot list in `carfo/PLAN.md`, section 8).
 11. **English:** add English under *Settings → Languages*; UI strings are in
